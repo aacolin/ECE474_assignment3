@@ -14,34 +14,23 @@ George Collias          474a
 
 3) Description
 
-The binary dpgen (short for datapath generator) converts a behavioral netlist specification into a 
-synthesizable Verilog datapath implementation.
+The binary  hlsyn (high-level synthesizer) converts a C-like behavioral description into a
+scheduled high-level statement machine implemented in Verilog.
+
 
 The program uses command-line argument to specify the input and output files using the following syntax:
 	
-    Syntax:	dpgen <INPUT-netlistFile> <OUTPUT-verilogFile>\n
+    Syntax:	 hlsyn <INPUT-cFile> <INPUT-latency> <OUTPUT-verilogFile>
 	
-	Example: dpgen 474a_circuit1.txt circuit1.v
+             hlsyn cFile latency verilogFile
 
-Note: if the netlistFile is not located in the same folder as the binary dpgen, the full path to the 
+	Example: hlsyn hls_test1.c hls_test1.v
+
+Note: if the cFile is not located in the same folder as the binary dpgen, the full path to the 
 netlistFile must be provided.
 
-The included bash script test_dpgen.sh can be used to build & test the binary dpgen against all the 
-netlists (circuits) but it is ultimately not a requirement, feel free to use it. 
+The included bash script test_hlsyn.sh can be used to build & test the binary hlsyn against all the 
+test files but it is ultimately not a requirement, feel free to use it. 
 
 4) Individual Contributions
 
-Aaron Colin Del Angel
-- Implemented hardware component and wire class
-- Implemented testing script test_dpgen.sh
-
-Michael Cesar-Torres
-- Implemented main.cpp
-- Updated the library to include signed integer modules.
-- Error checking for arguments
-
-Tej Scott
-- Implemented circuitParser.cpp
-
-George Collias
-- Implemented topModule.cpp
