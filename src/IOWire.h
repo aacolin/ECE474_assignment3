@@ -1,4 +1,5 @@
-#pragma once
+# ifndef IOWIRE_H
+# define IOWIRE_H
 
 #include <iostream>
 #include <sstream>
@@ -39,3 +40,4 @@ class IOWire {
 
 
 };
+# endif // IOWIRE_H

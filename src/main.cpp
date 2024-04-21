@@ -14,21 +14,22 @@ void makeOutputFile(string circuitName, TopModule *topModule);
 
 int main(int argc, char* argv[])
 {
-	// cout << argv[0] << endl;
-
+	// Check if the user has entered the correct number of arguments
 	if (argc != 4)
 	{
-		cout << "Error, incorrect number of input arguments." << endl << endl;
-		cout << "Usage:\thlsyn cFile latency verilogFile" << endl;
-		cout << "\tcFile - The path to the netlist you wish to convert." << endl;
-		cout << "\tlatency - How long the graph has to be scheduled." << endl;
-		cout << "\tverilogFile - The path to for the output verilogFile" << endl;
+		cout << "Error, incorrect number of input arguments.\n" << endl
+			<< "Syntax:  hlsyn cFile latency verilogFile\n" << endl
+			<< "  cFile       : The path to the netlist you wish to convert." << endl
+			<< "  latency     : How long the graph has to be scheduled." << endl
+			<< "  verilogFile : The path to for the output verilogFile." << endl;
 		return 0;
 	}
-
+	
 	int latency;
+	// Check if the latency is an integer
 	try
 	{
+		// Convert the latency to an integer
 		latency = stoi(argv[2]);
 	}
 	catch (std::invalid_argument&)
@@ -39,7 +40,6 @@ int main(int argc, char* argv[])
 
 	//vector<string> circuits = { "474a_circuit1", "474a_circuit2", "474a_circuit3", "474a_circuit4", "474a_circuit5", "574a_circuit6", "574a_circuit7", "574a_circuit8" };
 	vector<string> circuits = { argv[1] };
-	// circuits.push_back("test_if4.c");
 	map<string, vector<double>> m;
 
 	m["REG"] = { 2.616, 2.644, 2.879, 3.061, 3.602, 3.966 };
@@ -57,21 +57,24 @@ int main(int argc, char* argv[])
 	
 
 	for (string circuitName : circuits) {
+		
 		unsigned int i = 0;
 		vector<string> netlistContents;
+		
 		TopModule *topModule = new TopModule();
+		
 		netlistContents = readNetlist(circuitName);
+		
 		if (netlistContents.size() == 0) {
 			cout << "Cannot open file or empty file: " << circuitName << endl;
+			
 			return 1;
 		}
 		vector<string> input_output_reg;
-
 		if (Parser::parseContent(netlistContents, topModule, m) == -1) {
 			cout << "Error: Couldn't parse a line. Check the netlist for errors. Exiting." << endl;
 			return 1;
 		}
-
 		//Module *temp = new Module();
 		//temp = &(topModule->modules.at(1));
 		int minLatency = 0;
@@ -105,6 +108,7 @@ int main(int argc, char* argv[])
 		makeOutputFile(argv[3]/*"output.v"*/, topModule);
 
 	}
+	
 }
 
 vector<string> readNetlist(string fileName)

@@ -1,4 +1,6 @@
-#pragma once
+# ifndef PARSER_H
+# define PARSER_H
+
 #include <algorithm>
 #include <iostream>
 #include <regex>
@@ -7,7 +9,6 @@
 #include <vector>
 #include <map>
 
-#include "Parser.h"
 #include "Module.h"
 #include "IOWire.h"
 #include "TopModule.h"
@@ -53,3 +54,5 @@ class Parser
 		static int ifFinder(int index, vector<string>& lines, TopModule * topModule, map<string, vector<double>> m);
 
 };
+
+# endif // PARSER_H

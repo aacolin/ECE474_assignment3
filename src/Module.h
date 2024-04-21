@@ -1,4 +1,5 @@
-#pragma once
+# ifndef MODULE_H
+# define MODULE_H
 
 #include <iostream>
 #include <vector>
@@ -46,3 +47,5 @@ class Module
 		void setOperation(string operation);
 		
 };
+
+# endif // MODULE_H

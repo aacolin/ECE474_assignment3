@@ -12,7 +12,7 @@ cmake_minimum_required(VERSION 3.20)
 set (CMAKE_CXX_STANDARD 11)
 
 # project name. 
-project ( dpgen )
+project ( hlsyn )
 
 # Add /src subdirectory to the project. 
 add_subdirectory( src )

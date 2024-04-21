@@ -67,7 +67,7 @@ int Parser::parseContent(vector<string> lines, TopModule * topModule, map<string
 			}
 		}
 	}
-
+	return 0; // return no error
 }
 
 int Parser::ifFinder(int index, vector<string>& lines, TopModule * topModule, map<string, vector<double>> m)
