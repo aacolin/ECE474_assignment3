@@ -202,6 +202,30 @@ TopModule.cpp.s:
 	cd /home/aaron/GitHub/ECE474_assignment3/build && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/hlsyn.dir/build.make src/CMakeFiles/hlsyn.dir/TopModule.cpp.s
 .PHONY : TopModule.cpp.s
 
+argumentChecker.o: argumentChecker.cpp.o
+.PHONY : argumentChecker.o
+
+# target to build an object file
+argumentChecker.cpp.o:
+	cd /home/aaron/GitHub/ECE474_assignment3/build && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/hlsyn.dir/build.make src/CMakeFiles/hlsyn.dir/argumentChecker.cpp.o
+.PHONY : argumentChecker.cpp.o
+
+argumentChecker.i: argumentChecker.cpp.i
+.PHONY : argumentChecker.i
+
+# target to preprocess a source file
+argumentChecker.cpp.i:
+	cd /home/aaron/GitHub/ECE474_assignment3/build && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/hlsyn.dir/build.make src/CMakeFiles/hlsyn.dir/argumentChecker.cpp.i
+.PHONY : argumentChecker.cpp.i
+
+argumentChecker.s: argumentChecker.cpp.s
+.PHONY : argumentChecker.s
+
+# target to generate assembly for a file
+argumentChecker.cpp.s:
+	cd /home/aaron/GitHub/ECE474_assignment3/build && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/hlsyn.dir/build.make src/CMakeFiles/hlsyn.dir/argumentChecker.cpp.s
+.PHONY : argumentChecker.cpp.s
+
 main.o: main.cpp.o
 .PHONY : main.o
 
@@ -268,6 +292,9 @@ help:
 	@echo "... TopModule.o"
 	@echo "... TopModule.i"
 	@echo "... TopModule.s"
+	@echo "... argumentChecker.o"
+	@echo "... argumentChecker.i"
+	@echo "... argumentChecker.s"
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"

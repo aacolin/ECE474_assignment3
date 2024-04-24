@@ -4,112 +4,79 @@
 #include <vector>
 #include <map>
 #include "Parser.h"
-#include <cmath> // Include the <cmath> header for ceil and log2 functions
+#include <cmath> 
+#include "argumentChecker.h"
 
 using namespace std;
 
 vector<string> readNetlist(string fileName);
 void writeToFile(string circuitName, TopModule *topModule);
 void makeOutputFile(string circuitName, TopModule *topModule);
+bool processCircuit(const string& circuitName, int latency, const string& outputFileName);
 
 int main(int argc, char* argv[])
 {
-	// Check if the user has entered the correct number of arguments
-	if (argc != 4)
-	{
-		cout << "Error, incorrect number of input arguments.\n" << endl
-			<< "Syntax:  hlsyn cFile latency verilogFile\n" << endl
-			<< "  cFile       : The path to the netlist you wish to convert." << endl
-			<< "  latency     : How long the graph has to be scheduled." << endl
-			<< "  verilogFile : The path to for the output verilogFile." << endl;
-		return 0;
-	}
-	
-	int latency;
-	// Check if the latency is an integer
-	try
-	{
-		// Convert the latency to an integer
-		latency = stoi(argv[2]);
-	}
-	catch (std::invalid_argument&)
-	{
-		cout << "Latency should be an integer, you entered: " << argv[2] << endl;
-		return 0;
-	}
-
-	//vector<string> circuits = { "474a_circuit1", "474a_circuit2", "474a_circuit3", "474a_circuit4", "474a_circuit5", "574a_circuit6", "574a_circuit7", "574a_circuit8" };
+	ArgumentChecker checker(argc, argv);
+    if (!checker.checkArguments()) {
+        return 0;
+    }
+    int latency = checker.getLatency();
 	vector<string> circuits = { argv[1] };
-	map<string, vector<double>> m;
-
-	m["REG"] = { 2.616, 2.644, 2.879, 3.061, 3.602, 3.966 };
-	m["ADD"] = { 2.704, 3.713, 4.924, 5.638, 7.270, 9.566 };
-	m["SUB"] = { 3.024, 3.412, 4.890, 5.569, 7.253, 9.566 };
-	m["MUL"] = { 2.438, 3.651, 7.453, 7.811, 12.395, 15.354 };
-	m["COMP"] = { 3.031, 3.934, 5.949, 6.256, 7.264, 8.416 };
-	m["MUX"] = { 4.083, 4.115, 4.815, 5.623, 8.079, 8.766 };
-	m["SHR"] = { 3.644, 4.007, 5.178, 6.460, 8.819, 11.095 };
-	m["SHL"] = { 3.614, 3.980, 5.152, 6.549, 8.565, 11.220 };
-	m["DIV"] = { 0.619, 2.144, 15.439, 33.093, 86.312, 243.233 };
-	m["MOD"] = { 0.758, 2.149, 16.078, 35.563, 88.142, 250.583 };
-	m["INC"] = { 1.792, 2.218, 3.111, 3.471, 4.347, 6.200 };
-	m["DEC"] = { 1.792, 2.218, 3.108, 3.701, 4.685, 6.503 };
-	
-
-	for (string circuitName : circuits) {
-		
-		unsigned int i = 0;
-		vector<string> netlistContents;
-		
-		TopModule *topModule = new TopModule();
-		
-		netlistContents = readNetlist(circuitName);
-		
-		if (netlistContents.size() == 0) {
-			cout << "Cannot open file or empty file: " << circuitName << endl;
-			
-			return 1;
-		}
-		vector<string> input_output_reg;
-		if (Parser::parseContent(netlistContents, topModule, m) == -1) {
-			cout << "Error: Couldn't parse a line. Check the netlist for errors. Exiting." << endl;
-			return 1;
-		}
-		//Module *temp = new Module();
-		//temp = &(topModule->modules.at(1));
-		int minLatency = 0;
-
-		topModule->findCriticalPath();
-		minLatency = topModule->calculateTimeFrames(latency);
-		if (minLatency != 0)
-		{
-			cout << "Error: Latency entered is too small for the netlist. Please enter a value of " << minLatency << " or higher. Exiting." << endl;
-			return 0;
-		}
-		for (i = 0; i < topModule->modules.size(); i++)
-		{
-			topModule->forceSchedule(latency);
-			//for (int j = 0; j < topModule->modules.size(); j++)
-			//{
-			//	cout << topModule->modules.at(j)->getOperation() << " [" << topModule->modules.at(j)->getTimeFrame().at(0) << ", " <<  topModule->modules.at(j)->getTimeFrame().at(1) << "]" << endl;
-			//}
-		}
-
-		//for (int j = 0; j < topModule->modules.size(); j++)
-		//{
-		//	cout << topModule->modules.at(j)->getOperation() << " [" << topModule->modules.at(j)->getTimeFrame().at(0) << ", " <<  topModule->modules.at(j)->getTimeFrame().at(1) << ", " << topModule->modules.at(j)->getTimeFrame().at(2) << "]" << endl;
-		//}
-
-
-		//topModule->forceSchedule(latency);
-		//topModule->populateGraph(latency);
-
-		// Write to the .v file
-		makeOutputFile(argv[3]/*"output.v"*/, topModule);
-
-	}
-	
+    for (const string& circuitName : circuits) {
+        if (!processCircuit(circuitName, latency, argv[3])) {
+            return 1;
+        }
+    }
+    return 0;
 }
+
+
+bool processCircuit(const string& circuitName, int latency, const string& outputFileName) {
+    // Initialize variables
+    vector<string> netlistContents;
+    TopModule *topModule = new TopModule();
+
+    // Read the netlist
+    netlistContents = readNetlist(circuitName);
+
+    // Check if the netlist is empty
+    if (netlistContents.empty()) {
+        cout << "Cannot open file or empty file: " << circuitName << endl;
+        delete topModule;
+        return false;
+    }
+
+    // Parse the netlist content
+    if (Parser::parseContent(netlistContents, topModule) == -1) {
+        cout << "Error parsing file. Check the netlist file for errors." << endl;
+        delete topModule;
+        return false;
+    }
+
+    // Calculate the minimum latency
+    int minLatency = topModule->calculateTimeFrames(latency);
+
+    // Check if the entered latency is too small
+    if (minLatency != 0) {
+        cout << "Error: Invalid latency parameter. Expected latency >= " << minLatency  << endl;
+        delete topModule;
+        return false;
+    }
+
+    // Force schedule for each module
+    for (size_t i = 0; i < topModule->modules.size(); i++) {
+        topModule->forceSchedule(latency);
+    }
+
+    // Create the output file
+    makeOutputFile(outputFileName, topModule);
+
+    // Clean up
+    delete topModule;
+
+    return true;
+}
+
 
 vector<string> readNetlist(string fileName)
 {
@@ -126,14 +93,12 @@ vector<string> readNetlist(string fileName)
 		}
 		netlistFile.close();
 	} 
-
 	return netlistContents;
 }
 
 void writeToFile(string circuitName, TopModule *topModule) {
 	ofstream circuitFile;
 	circuitFile.open(circuitName);
-	//cout << endl << endl;
 	topModule->printModuleName(circuitFile, circuitName.substr(0, circuitName.size() - 2));
 	topModule->printInputs(circuitFile);
 	topModule->printOutputs(circuitFile);
@@ -153,9 +118,8 @@ void makeOutputFile(string circuitName, TopModule *topModule) {
 		}
 	}
 	
-
 	maxSize = maxSize + 2; // Since we also have a wait state and a final state
-	// cout << "MaxSize: " << maxSize << " " << ceil(log2(maxSize)) << endl;
+
 	ofstream circuitFile;
 	circuitFile.open(circuitName);
 
@@ -180,23 +144,33 @@ void makeOutputFile(string circuitName, TopModule *topModule) {
 	circuitFile << "\t\t\tDone <= 0;" << endl;
 	circuitFile << "\t\tend" << endl;
 	
-	for (unsigned int i = 1; i < maxSize - 1; i++) {
-		circuitFile << "\t\telse if (Case == " << i << ") begin" << endl;
-		for (auto module : topModule->modules) {
-			// We currently have the time frame of a multi-cycle operation be the time it finishes, so we need to do these checks to print things at the right state
-			if ((i == module->getTimeFrame().at(0) - 2) && (module->getOperation().compare("MOD") == 0 || module->getOperation().compare("DIV") == 0)) {
-				circuitFile << "\t\t\t" << module->getOperationLine() << ";" << endl;
-			}
-			else if ((i == module->getTimeFrame().at(0) - 1) && module->getOperation().compare("MUL") == 0) {
-				circuitFile << "\t\t\t" << module->getOperationLine() << ";" << endl;
-			}
-			else if (i == module->getTimeFrame().at(0) && module->getOperation().compare("MOD") != 0 && module->getOperation().compare("DIV") != 0 && module->getOperation().compare("MUL") != 0) {
-				circuitFile << "\t\t\t" << module->getOperationLine() << ";" << endl;
-			}
-		}
-		circuitFile << "\t\t\tCase <= Case + 1;" << endl;
-		circuitFile << "\t\tend" << endl;
-	}
+	// Iterate over each case, excluding the first and last
+for (unsigned int i = 1; i < maxSize - 1; i++) {
+    circuitFile << "\t\telse if (Case == " << i << ") begin" << endl;
+
+    // Iterate over each module in the top module
+    for (const auto& module : topModule->modules) {
+        // Get the time frame and operation for readability
+        int timeFrame = module->getTimeFrame().at(0);
+        string operation = module->getOperation();
+
+        // Check if the operation is MOD or DIV and it's the right time frame
+        if ((i == timeFrame - 2) && (operation == "MOD" || operation == "DIV")) {
+            circuitFile << "\t\t\t" << module->getOperationLine() << ";" << endl;
+        }
+        // Check if the operation is MUL and it's the right time frame
+        else if ((i == timeFrame - 1) && operation == "MUL") {
+            circuitFile << "\t\t\t" << module->getOperationLine() << ";" << endl;
+        }
+        // Check if the operation is not MOD, DIV, or MUL and it's the right time frame
+        else if (i == timeFrame && operation != "MOD" && operation != "DIV" && operation != "MUL") {
+            circuitFile << "\t\t\t" << module->getOperationLine() << ";" << endl;
+        }
+    }
+
+    circuitFile << "\t\t\tCase <= Case + 1;" << endl;
+    circuitFile << "\t\tend" << endl;
+}
 	circuitFile << "\t\telse if (Case == " << maxSize - 1 << ") begin" << endl;
 	circuitFile << "\t\t\tDone <= 1;" << endl;
 	circuitFile << "\t\t\tCase <= 0;" << endl;

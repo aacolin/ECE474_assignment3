@@ -1,1 +1,1 @@
-/usr/bin/c++ CMakeFiles/hlsyn.dir/IOWire.cpp.o CMakeFiles/hlsyn.dir/Module.cpp.o CMakeFiles/hlsyn.dir/TopModule.cpp.o CMakeFiles/hlsyn.dir/main.cpp.o CMakeFiles/hlsyn.dir/parser.cpp.o -o hlsyn
+/usr/bin/c++ CMakeFiles/hlsyn.dir/IOWire.cpp.o CMakeFiles/hlsyn.dir/Module.cpp.o CMakeFiles/hlsyn.dir/TopModule.cpp.o CMakeFiles/hlsyn.dir/argumentChecker.cpp.o CMakeFiles/hlsyn.dir/main.cpp.o CMakeFiles/hlsyn.dir/parser.cpp.o -o hlsyn

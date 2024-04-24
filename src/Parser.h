@@ -44,14 +44,15 @@ class Parser
 	private:
 
 	public:
-		static int parseLine(string line, TopModule *topModule, map<string, vector<double>> m);
+		static int parseLine(string line, TopModule *topModule);
 		static vector<IOWire> parseInput(string inputString);
 		static vector<IOWire> parseOutput(string outputString);
 		static vector<IOWire> parseWire(string wireString);
 		static vector<IOWire> parseRegister(string registerString);
-		static Module* parseOperation(string operationString, TopModule &topModule, map<string, vector<double>> m);
-		static int parseContent(vector<string> line, TopModule * topModule, map<string, vector<double>> m);
-		static int ifFinder(int index, vector<string>& lines, TopModule * topModule, map<string, vector<double>> m);
+		static Module* parseOperation(string operationString, TopModule &topModule);
+		// static int parseContent(vector<string> line, TopModule * topModule, map<string, vector<double>> m);
+		static int parseContent(vector<string> line, TopModule * topModule );
+		static int ifFinder(int index, vector<string>& lines, TopModule * topModule);
 
 };
 

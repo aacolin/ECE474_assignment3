@@ -5,6 +5,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/hlsyn.dir/Module.cpp.o.d"
   "CMakeFiles/hlsyn.dir/TopModule.cpp.o"
   "CMakeFiles/hlsyn.dir/TopModule.cpp.o.d"
+  "CMakeFiles/hlsyn.dir/argumentChecker.cpp.o"
+  "CMakeFiles/hlsyn.dir/argumentChecker.cpp.o.d"
   "CMakeFiles/hlsyn.dir/main.cpp.o"
   "CMakeFiles/hlsyn.dir/main.cpp.o.d"
   "CMakeFiles/hlsyn.dir/parser.cpp.o"
