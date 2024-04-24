@@ -103,23 +103,22 @@ bool Verilog::processCircuit(const string& circuitName, int latency, const strin
  * @return A vector of strings containing the contents of the netlist file.
  * 
 */
-vector<string> Verilog::readNetlist(string fileName)
-{
-	string filePath = fileName;
-	ifstream netlistFile(filePath);
-	vector<string> netlistContents;
-	string line;
+vector<string> Verilog::readNetlist(const string& fileName){
+    ifstream netlistFile(fileName);
+    vector<string> netlistContents;
 
-	if (netlistFile.is_open() && netlistFile.good())
-	{
-		while (getline(netlistFile, line))
-		{
-			netlistContents.push_back(line);
-		}
-		netlistFile.close();
-	} 
-	return netlistContents;
+    if (!netlistFile){
+        throw runtime_error("Unable to open file: " + fileName);
+    }
+
+    string line;
+    while (getline(netlistFile, line)){
+        netlistContents.push_back(line);
+    }
+
+    return netlistContents;
 }
+
 
 /**
  * @brief Writes the circuit to the output file.

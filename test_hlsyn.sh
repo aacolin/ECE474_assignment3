@@ -1,8 +1,18 @@
 #!/bin/zsh
 
-# This is a simple test script for the hlsyn binary
+#if you are using bash, place the following line:
 
-# Compiling the hlsyn binary
+    #!/bin/bash
+
+# at the top of your script instead of #!/bin/zsh
+
+# This is a test script for the hlsyn binary
+# The script compiles the hlsyn binary and runs tests on it
+# It is necessary to have the testing files in a folder called "testing"
+# the script will compile the hlsyn binary, copy it to testing folder and run tests on it
+
+
+# Compiling the hlsyn binary section
 working_dir=$(pwd)
 rm -fr $working_dir/build
 clear

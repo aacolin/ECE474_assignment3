@@ -24,13 +24,21 @@ The program uses command-line argument to specify the input and output files usi
 	
              hlsyn cFile latency verilogFile
 
-	Example: hlsyn hls_test1.c hls_test1.v
+	Example: hlsyn hls_test1.c 10 hls_test1.v
 
 Note: if the cFile is not located in the same folder as the binary dpgen, the full path to the 
 netlistFile must be provided.
 
-The included bash script test_hlsyn.sh can be used to build & test the binary hlsyn against all the 
+The verilog file will be placed in the same directory as the hlsyn binary
+
+The included bash/zsh script test_hlsyn.sh can be used to build & test the binary hlsyn against all the 
 test files but it is ultimately not a requirement, feel free to use it. 
 
 4) Individual Contributions
 
+Aaron Colin:
+    - Implementation of argumentChecker class
+    - Refactoring of circuitParser (parseContent and ifFinder methods added)
+    - Implementation of verilog class
+    - Documented classes, functions and hard to read code
+    - Implementation of testing script test_hlsyn.sh
