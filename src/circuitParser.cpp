@@ -1,7 +1,21 @@
+/**
+ * @file circuitParser.cpp
+ * @brief This file defines the Parser class, which is responsible for parsing the input circuit file.
+*/
+
+
 #include "circuitParser.h"
 
-
-
+/**
+ * @brief Parses a line of the netlist file.
+ * 
+ * This function parses a line of the netlist file and extracts the necessary information to build the circuit.
+ * It identifies the type of line (input, output, wire, register, or operation) and calls the appropriate function to parse it.
+ * 
+ * @param line The line to be parsed.
+ * @param topModule The top module of the circuit.
+ * @return An integer indicating whether the line was parsed successfully.
+ */
 int Parser::parseLine(string line, TopModule * topModule) {
     istringstream lineStream(line);
     string identifier;
@@ -27,6 +41,18 @@ int Parser::parseLine(string line, TopModule * topModule) {
     return 0; // return no error
 }
 
+
+
+/**
+ * @brief Parses the content of the netlist file.
+ * 
+ * This function parses the content of the netlist file and extracts the necessary information to build the circuit.
+ * It identifies the type of line (input, output, wire, register, or operation) and calls the appropriate function to parse it.
+ * 
+ * @param lines The lines of the netlist file.
+ * @param topModule The top module of the circuit.
+ * @return An integer indicating whether the content was parsed successfully.
+ */
 int Parser::parseContent(vector<string> lines, TopModule * topModule) {
     for (unsigned int i = 0; i < lines.size(); i++) {
         if (lines[i].substr(0, 2) == IF) {
@@ -39,6 +65,19 @@ int Parser::parseContent(vector<string> lines, TopModule * topModule) {
     }
     return 0; // return no error
 }
+
+
+/**
+ * @brief Finds the if statement in the netlist file.
+ * 
+ * This function finds the if statement in the netlist file and extracts the necessary information to build the circuit.
+ * It identifies the true and false computations and creates the necessary components to implement the if statement.
+ * 
+ * @param index The index of the if statement in the netlist file.
+ * @param lines The lines of the netlist file.
+ * @param topModule The top module of the circuit.
+ * @return An integer indicating the index of the next line to be parsed.
+ */
 
 int Parser::ifFinder(int index, vector<string>& lines, TopModule * topModule)
 {
@@ -223,6 +262,16 @@ int Parser::ifFinder(int index, vector<string>& lines, TopModule * topModule)
 	return lineIndex;
 }
 
+
+/**
+ * @brief Parses an input line.
+ * 
+ * This function parses an input line and extracts the necessary information to build the circuit.
+ * It identifies the type of input (input or output) and creates the necessary components to implement the input.
+ * 
+ * @param inputString The input line to be parsed.
+ * @return A vector of wires representing the inputs.
+ */
 vector<Wire> Parser::parseInput(string inputString)
 {
 	
@@ -247,6 +296,16 @@ vector<Wire> Parser::parseInput(string inputString)
 	return inputs;
 }
 
+
+/**
+ * @brief Parses an output line.
+ * 
+ * This function parses an output line and extracts the necessary information to build the circuit.
+ * It identifies the type of output (input or output) and creates the necessary components to implement the output.
+ * 
+ * @param outputString The output line to be parsed.
+ * @return A vector of wires representing the outputs.
+ */
 vector<Wire> Parser::parseOutput(string outputString)
 {
 
@@ -271,6 +330,17 @@ vector<Wire> Parser::parseOutput(string outputString)
 	return outputs;
 }
 
+
+
+/**
+ * @brief Parses a wire line.
+ * 
+ * This function parses a wire line and extracts the necessary information to build the circuit.
+ * It identifies the type of wire (input or output) and creates the necessary components to implement the wire.
+ * 
+ * @param wireString The wire line to be parsed.
+ * @return A vector of wires representing the wires.
+ */
 vector<Wire> Parser::parseWire(string wireString)
 {
 	stringstream wireStream(wireString);
@@ -294,6 +364,16 @@ vector<Wire> Parser::parseWire(string wireString)
 	return wires;
 }
 
+
+/**
+ * @brief Parses a register line.
+ * 
+ * This function parses a register line and extracts the necessary information to build the circuit.
+ * It identifies the type of register (input or output) and creates the necessary components to implement the register.
+ * 
+ * @param registerString The register line to be parsed.
+ * @return A vector of wires representing the registers.
+ */
 vector<Wire> Parser::parseRegister(string registerString)
 {
 	stringstream registerStream(registerString);
@@ -315,6 +395,18 @@ vector<Wire> Parser::parseRegister(string registerString)
 	}
 	return registers;
 }
+
+
+/**
+ * @brief Parses an operation line.
+ * 
+ * This function parses an operation line and extracts the necessary information to build the circuit.
+ * It identifies the type of operation (addition, subtraction, multiplication, etc.) and creates the necessary components to implement the operation.
+ * 
+ * @param operationString The operation line to be parsed.
+ * @param topModule The top module of the circuit.
+ * @return A pointer to the hardware component representing the operation.
+ */
 HwComponent* Parser::parseOperation(string operationString, TopModule &topModule)
 {
     std::string dummy, operatorChar, inputChar1, inputChar2, inputChar3, outputChar;

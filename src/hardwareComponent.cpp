@@ -12,11 +12,23 @@
 #include <map>
 
 
+/**
+ * @brief Constructs a Hardware Component object.
+ * 
+ * This constructor initializes a HwComponent object with default values for its attributes.
+ */
 HwComponent::HwComponent()
     : operation(""), inputs(), output(new Wire()), delay(0), 
       maxBitWidth(0), isSigned(false), timeFrame()
 {}
 
+/**
+ * @brief Constructs a Hardware Component object.
+ * 
+ * This constructor initializes a HwComponent object with a given operation.
+ * 
+ * @param operation The operation performed by the module.
+ */
 HwComponent::HwComponent(string operation)
     : operation(operation), inputs(), output(new Wire()), delay(0), 
       maxBitWidth(0), isSigned(false), timeFrame()
@@ -178,13 +190,13 @@ void HwComponent::PrintModuleStatement(ofstream& circuitFile, int moduleNum)
     circuitFile << statement << endl;
 }
 
-// Setters
+// Hardware Components Setters
 void HwComponent::setOperationLine(string operationLine) { this->operationLine = operationLine; }
 void HwComponent::setOutput(Wire * output) { this->output = output; }
 void HwComponent::setOperation(string operation) { this->operation = operation; }
 void HwComponent::setTimeFrame(int edge) { timeFrame.push_back(edge); }
 
-// Getters
+// Hardware Components Getters
 string HwComponent::getOperation() { return this->operation; }
 string HwComponent::getOperationLine() { return this->operationLine; }
 vector<Wire*> HwComponent::getInputs() { return this->inputs; }
@@ -195,13 +207,31 @@ vector<int> HwComponent::getTimeFrame() { return this->timeFrame; }
 
 
 
-
-
-
-
-
+/**
+ * @brief Constructs a Wire object.
+ * 
+ * This constructor initializes a Wire object with default values for its attributes.
+ * The default values are an empty string for the name and type, a null pointer for the previous component, and zero for the bit width.
+ * 
+ * @param name The name of the wire.
+ * @param type The type of the wire.
+ * @param prev The previous component connected to the wire.
+ * @param bitWidth The bit width of the wire.
+ * @param isSigned A flag indicating whether the wire is signed.
+ * 
+*/
 Wire::Wire() : name(""), type(""), prev(nullptr), bitWidth(0), isSigned(false) {}
 
+
+/**
+ * @brief Constructs a Wire object.
+ * 
+ * This constructor initializes a Wire object with a given name and type.
+ * The constructor also sets the bit width and signed flag based on the type of the wire.
+ * 
+ * @param name The name of the wire.
+ * @param type The type of the wire.
+ */
 Wire::Wire(string name, string type) : name(name), type(type), prev(nullptr), isSigned(false)
 {
     size_t pos = type.find("UInt");
@@ -216,36 +246,30 @@ Wire::Wire(string name, string type) : name(name), type(type), prev(nullptr), is
     }
 }
 
-void Wire::setPrev(HwComponent *prev){
-	this->prev = prev;
-	return;
-}
 
-void Wire::setName(string name){
-	this->name = name;
-}
-
-void Wire::setNext(vector<HwComponent*> next){
-	this->next = next;
-	return;
-}
-
+/**
+ * @brief Adds a component to the list of next components.
+ * 
+ * This function adds a given component to the list of next components connected to the wire.
+ * 
+ * @param next The component to add to the list of next components.
+ */
 void Wire::addNext(HwComponent *next){
 	this->next.push_back(next);
 	return;
 }
 
-string Wire::getName(){
-	return this->name;
-}
 
-string Wire::getType(){
-	return this->type;
-}
 
-int Wire::getBitWidth(){
-	return this->bitWidth;
-}
+/**
+ * @brief Prints the wire to a string.
+ * 
+ * This function generates a string representation of the wire and returns it.
+ * The string representation includes the bit width and name of the wire.
+ * If the wire is signed, the string representation includes the keyword 'signed' before the bit width.
+ * 
+ * @return A string representation of the wire.
+ */
 
 string Wire::printWire(){
 	string retString = "";
@@ -260,8 +284,15 @@ string Wire::printWire(){
 	return retString;
 }
 
-
-
+/**
+ * @brief Prints the bit width of the wire to a string.
+ * 
+ * This function generates a string representation of the bit width of the wire and returns it.
+ * If the bit width is greater than 1, the string representation is in the form '[bitWidth-1:0]'.
+ * If the bit width is not greater than 1, the string representation is an empty string.
+ * 
+ * @return A string representation of the bit width of the wire.
+ */
 
 string Wire::printBitWidth() {
     // Create a stringstream to build the bit width string
@@ -281,6 +312,16 @@ string Wire::printBitWidth() {
 }
 
 
-bool Wire::getSigned(){
-	return this->isSigned;
-}
+// Wire getters
+
+bool Wire::getSigned(){	return this->isSigned; }
+string Wire::getName(){	return this->name; }
+string Wire::getType(){	return this->type; }
+int Wire::getBitWidth(){ return this->bitWidth; }
+
+
+// Wire setters
+
+void Wire::setPrev(HwComponent *prev){ this->prev = prev; return;}
+void Wire::setName(string name){ this->name = name; return; }
+void Wire::setNext(vector<HwComponent*> next){ this->next = next; return; }

@@ -1,3 +1,13 @@
+/**
+ * @file topModule.h
+ * @brief This file defines the TopModule class, which is responsible for 
+ * 		managing the modules, wires, and registers of the circuit.
+ *
+ * 		The TopModule class is responsible for managing the modules, wires, 
+ * 		and registers of the circuit. It also contains methods for scheduling 
+ * 		the circuit.
+ */
+
 #ifndef TOPMODULE_H
 #define TOPMODULE_H
 

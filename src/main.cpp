@@ -1,3 +1,11 @@
+/**
+ * @file main.cpp
+ * @brief This file defines the main function, which is responsible for running the program.
+ * 
+ * The main function is responsible for running the program. It checks the command-line arguments,
+ * processes the netlist file, and generates the Verilog output file.  
+*/
+
 #include <iostream>
 #include <fstream>
 #include <string>

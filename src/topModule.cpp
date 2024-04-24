@@ -1,3 +1,13 @@
+/**
+ * @file topModule.cpp
+ * @brief This file defines the TopModule class, which is responsible for managing the top module of the circuit.
+ * 
+ * The TopModule class is responsible for managing the top module of the circuit. 
+ * It contains methods for setting the inputs, outputs, wires, and registers of the circuit.
+ * It also contains methods for scheduling the circuit.
+ * 
+ */
+
 #include "topModule.h"
 #include <iostream>
 

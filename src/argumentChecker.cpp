@@ -1,3 +1,8 @@
+/**
+ * @file argumentChecker.cpp
+ * @brief This file defines the ArgumentChecker class, which is responsible for checking the validity of the command-line arguments.
+*/
+
 #include "argumentChecker.h"
 using namespace std;
 

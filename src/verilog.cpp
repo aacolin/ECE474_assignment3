@@ -1,9 +1,51 @@
+/**
+ * @file verilog.cpp
+ * 
+ * @brief This file defines the Verilog class, which is responsible for processing the circuit and generating the Verilog output file.
+ * 
+ * The Verilog class is responsible for processing the circuit and generating the Verilog output file.
+ * It reads the netlist file, parses the content, calculates the minimum latency, forces the schedule for each module,
+ * and creates the output file.
+ * 
+ * 		- The processCircuit method processes the circuit and generates the output file.
+ * 		- It reads the netlist file, parses the content, calculates the minimum latency, forces the schedule for each module, and creates the output file.
+ * 		- The readNetlist method reads the netlist file and returns the contents as a vector of strings.
+ * 		- The writeToFile method writes the circuit to the output file.
+ * 		- The makeOutputFile method creates the output file.
+ * 		- The Verilog constructor initializes the circuit name, latency, and output file name.
+ * 
+*/
+
+
 #include "verilog.h"
 
-
+/**
+ * @brief Constructs a Verilog object.
+ * 
+ * This constructor initializes a Verilog object with the given circuit name, latency, and output file name.
+ * 	
+ * @param circuitName The name of the circuit file.
+ * @param latency The latency of the circuit.
+ * @param outputFileName The name of the output file.
+ * 
+*/
 Verilog::Verilog(const string& circuitName, int latency, const string& outputFileName) 
 	: circuitName(circuitName), latency(latency), outputFileName(outputFileName)
 {}
+
+/**
+ * @brief Processes the circuit and generates the output file.
+ * 
+ * This function processes the circuit and generates the output file.
+ * It reads the netlist file, parses the content, calculates the minimum latency, forces the schedule for each module, and creates the output file.
+ * 
+ * @param circuitName The name of the circuit file.
+ * @param latency The latency of the circuit.
+ * @param outputFileName The name of the output file.
+ * 
+ * @return A boolean indicating whether the circuit was processed successfully.
+ * 
+*/
 
 bool Verilog::processCircuit(const string& circuitName, int latency, const string& outputFileName) {
     // Initialize variables
@@ -51,7 +93,16 @@ bool Verilog::processCircuit(const string& circuitName, int latency, const strin
     return true;
 }
 
-
+/**
+ * @brief Reads the netlist file and returns the contents as a vector of strings.
+ * 
+ * This function reads the netlist file and returns the contents as a vector of strings.
+ * 
+ * @param fileName The name of the netlist file.
+ * 
+ * @return A vector of strings containing the contents of the netlist file.
+ * 
+*/
 vector<string> Verilog::readNetlist(string fileName)
 {
 	string filePath = fileName;
@@ -70,6 +121,15 @@ vector<string> Verilog::readNetlist(string fileName)
 	return netlistContents;
 }
 
+/**
+ * @brief Writes the circuit to the output file.
+ * 
+ * This function writes the circuit to the output file.
+ * 
+ * @param circuitName The name of the circuit file.
+ * @param topModule The top module of the circuit.
+ * 
+*/
 void Verilog::writeToFile(string circuitName, TopModule *topModule) {
 	ofstream circuitFile;
 	circuitFile.open(circuitName);
@@ -83,6 +143,15 @@ void Verilog::writeToFile(string circuitName, TopModule *topModule) {
 	circuitFile.close();
 }
 
+/**
+ * @brief Creates the output file.
+ * 
+ * This function creates the output file.
+ * 
+ * @param circuitName The name of the circuit file.
+ * @param topModule The top module of the circuit.
+ * 
+*/
 void Verilog::makeOutputFile(string circuitName, TopModule *topModule) {
 	int maxSize = 0;
 
@@ -92,7 +161,7 @@ void Verilog::makeOutputFile(string circuitName, TopModule *topModule) {
 		}
 	}
 	
-	maxSize = maxSize + 2; // Since we also have a wait state and a final state
+	maxSize = maxSize + 2;
 
 	ofstream circuitFile;
 	circuitFile.open(circuitName);
@@ -119,32 +188,32 @@ void Verilog::makeOutputFile(string circuitName, TopModule *topModule) {
 	circuitFile << "\t\tend" << endl;
 	
 	// Iterate over each case, excluding the first and last
-for (unsigned int i = 1; i < maxSize - 1; i++) {
-    circuitFile << "\t\telse if (Case == " << i << ") begin" << endl;
+	for (unsigned int i = 1; i < maxSize - 1; i++) {
+		circuitFile << "\t\telse if (Case == " << i << ") begin" << endl;
 
-    // Iterate over each module in the top module
-    for (const auto& module : topModule->modules) {
-        // Get the time frame and operation for readability
-        int timeFrame = module->getTimeFrame().at(0);
-        string operation = module->getOperation();
+		// Iterate over each module in the top module
+		for (const auto& module : topModule->modules) {
+			// Get the time frame and operation for readability
+			int timeFrame = module->getTimeFrame().at(0);
+			string operation = module->getOperation();
 
-        // Check if the operation is MOD or DIV and it's the right time frame
-        if ((i == timeFrame - 2) && (operation == "MOD" || operation == "DIV")) {
-            circuitFile << "\t\t\t" << module->getOperationLine() << ";" << endl;
-        }
-        // Check if the operation is MUL and it's the right time frame
-        else if ((i == timeFrame - 1) && operation == "MUL") {
-            circuitFile << "\t\t\t" << module->getOperationLine() << ";" << endl;
-        }
-        // Check if the operation is not MOD, DIV, or MUL and it's the right time frame
-        else if (i == timeFrame && operation != "MOD" && operation != "DIV" && operation != "MUL") {
-            circuitFile << "\t\t\t" << module->getOperationLine() << ";" << endl;
-        }
-    }
+			// Check if the operation is MOD or DIV and it's the right time frame
+			if ((i == timeFrame - 2) && (operation == "MOD" || operation == "DIV")) {
+				circuitFile << "\t\t\t" << module->getOperationLine() << ";" << endl;
+			}
+			// Check if the operation is MUL and it's the right time frame
+			else if ((i == timeFrame - 1) && operation == "MUL") {
+				circuitFile << "\t\t\t" << module->getOperationLine() << ";" << endl;
+			}
+			// Check if the operation is not MOD, DIV, or MUL and it's the right time frame
+			else if (i == timeFrame && operation != "MOD" && operation != "DIV" && operation != "MUL") {
+				circuitFile << "\t\t\t" << module->getOperationLine() << ";" << endl;
+			}
+		}
 
-    circuitFile << "\t\t\tCase <= Case + 1;" << endl;
-    circuitFile << "\t\tend" << endl;
-}
+		circuitFile << "\t\t\tCase <= Case + 1;" << endl;
+		circuitFile << "\t\tend" << endl;
+	}
 	circuitFile << "\t\telse if (Case == " << maxSize - 1 << ") begin" << endl;
 	circuitFile << "\t\t\tDone <= 1;" << endl;
 	circuitFile << "\t\t\tCase <= 0;" << endl;

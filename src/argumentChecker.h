@@ -1,3 +1,8 @@
+/**
+ * @file argumentChecker.h
+ * @brief This file defines the ArgumentChecker class, which is responsible for checking the validity of the command-line arguments.
+*/
+
 #ifndef ARGUMENTCHECKER_H
 #define ARGUMENTCHECKER_H
 

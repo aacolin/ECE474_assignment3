@@ -29,8 +29,8 @@ class HwComponent
     private:
         string operation; 									// The operation performed by the module
         string operationLine; 								// The line of code that represents the operation
-        vector<Wire*> inputs; 							// The input wires to the module
-        Wire* output; 									// The output wire from the module
+        vector<Wire*> inputs; 								// The input wires to the module
+        Wire* output; 										// The output wire from the module
         double delay; 										// The delay of the module
         int maxBitWidth; 									// The maximum bit width of the module
         bool isSigned; 										// Whether the module operates on signed numbers
@@ -38,9 +38,9 @@ class HwComponent
 	
 	// Declare the public members of the Module class
     public:
-        HwComponent(); 											// Default constructor
-        HwComponent(string operation); 							// Constructor that takes an operation
-        HwComponent(string operation, vector<Wire*> inputs, 	// Constructor that takes an operation, inputs, output, and operation line
+        HwComponent(); 										// Default constructor
+        HwComponent(string operation); 						// Constructor that takes an operation
+        HwComponent(string operation, vector<Wire*> inputs, // Constructor that takes an operation, inputs, output, and operation line
 			   Wire *output, string operationLine); 		
         
 		void updateAsap(int edge); 							// Method to update the module as soon as possible
@@ -52,46 +52,46 @@ class HwComponent
 		// Setters
 		void setOperationLine(string operationLine); 		// Setter for the operation line
 		void setOperation(string operation); 				// Setter for the operation
-		void setOutput(Wire* output); 					// Setter for the output
+		void setOutput(Wire* output); 						// Setter for the output
 		void setTimeFrame(int edge); 						// Setter for the time frame
 
 		// Getters
 		string getOperation(); 								// Getter for the operation
         string getOperationLine(); 							// Getter for the operation line
-        vector<Wire*> getInputs(); 						// Getter for the inputs
+        vector<Wire*> getInputs(); 							// Getter for the inputs
         Wire* getOutputs(); 								// Getter for the output
         double getDelay(); 									// Getter for the delay
         int getMaxBitWidth(); 								// Getter for the maximum bit width
         vector<int> getTimeFrame(); 						// Getter for the time frame   
 };
 
-
+//	Define the Wire class
 class Wire {
 	private:
-		string name;
-		string type;
-		int bitWidth;
-		bool isSigned;
+		string name;										// The name of the wire
+		string type;										// The type of the wire				
+		int bitWidth;										// The bit width of the wire
+		bool isSigned;										// Whether the wire is signed
 		
 
 	public:
-		HwComponent *prev;
-		vector<HwComponent*> next;
+		HwComponent *prev;									// The previous component
+		vector<HwComponent*> next;							// The next components
 
-		Wire();
-		Wire(string name, string type);
+		Wire();												// Default constructor
+		Wire(string name, string type);						// Constructor that takes a name and type
 
-		void setNext(vector<HwComponent*> next);
-		void addNext(HwComponent *next);
-		void setPrev(HwComponent *prev);
-		void setName(string name);
-		string getName();
-		string getType();
-		int getBitWidth();
-		bool getSigned();
+		void setNext(vector<HwComponent*> next);			// Setter for the next components
+		void addNext(HwComponent *next);					// Method to add a next component
+		void setPrev(HwComponent *prev);					// Setter for the previous component
+		void setName(string name);							// Setter for the name
+		string getName();									// Getter for the name
+		string getType();									// Getter for the type
+		int getBitWidth();									// Getter for the bit width
+		bool getSigned();									// Getter for whether the wire is signed
 
-		string printWire();
-		string printBitWidth();
+		string printWire();									// Method to print the wire
+		string printBitWidth();								// Method to print the bit width
 
 
 };
