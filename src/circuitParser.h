@@ -44,10 +44,10 @@ class Parser
 
 	public:
 		static int parseLine(string line, TopModule *topModule);
-		static vector<IOWire> parseInput(string inputString);
-		static vector<IOWire> parseOutput(string outputString);
-		static vector<IOWire> parseWire(string wireString);
-		static vector<IOWire> parseRegister(string registerString);
+		static vector<Wire> parseInput(string inputString);
+		static vector<Wire> parseOutput(string outputString);
+		static vector<Wire> parseWire(string wireString);
+		static vector<Wire> parseRegister(string registerString);
 		static HwComponent* parseOperation(string operationString, TopModule &topModule);
 		// static int parseContent(vector<string> line, TopModule * topModule, map<string, vector<double>> m);
 		static int parseContent(vector<string> line, TopModule * topModule );

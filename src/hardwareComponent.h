@@ -16,8 +16,8 @@
 
 
 
-// Forward declaration of the IOWire class to resolve circular dependencies
-class IOWire;
+// Forward declaration of the Wire class to resolve circular dependencies
+class Wire;
 
 // Use the standard namespace
 using namespace std;
@@ -29,8 +29,8 @@ class HwComponent
     private:
         string operation; 									// The operation performed by the module
         string operationLine; 								// The line of code that represents the operation
-        vector<IOWire*> inputs; 							// The input wires to the module
-        IOWire* output; 									// The output wire from the module
+        vector<Wire*> inputs; 							// The input wires to the module
+        Wire* output; 									// The output wire from the module
         double delay; 										// The delay of the module
         int maxBitWidth; 									// The maximum bit width of the module
         bool isSigned; 										// Whether the module operates on signed numbers
@@ -40,8 +40,8 @@ class HwComponent
     public:
         HwComponent(); 											// Default constructor
         HwComponent(string operation); 							// Constructor that takes an operation
-        HwComponent(string operation, vector<IOWire*> inputs, 	// Constructor that takes an operation, inputs, output, and operation line
-			   IOWire *output, string operationLine); 		
+        HwComponent(string operation, vector<Wire*> inputs, 	// Constructor that takes an operation, inputs, output, and operation line
+			   Wire *output, string operationLine); 		
         
 		void updateAsap(int edge); 							// Method to update the module as soon as possible
         void updateAlap(int edge); 							// Method to update the module as late as possible
@@ -52,21 +52,21 @@ class HwComponent
 		// Setters
 		void setOperationLine(string operationLine); 		// Setter for the operation line
 		void setOperation(string operation); 				// Setter for the operation
-		void setOutput(IOWire* output); 					// Setter for the output
+		void setOutput(Wire* output); 					// Setter for the output
 		void setTimeFrame(int edge); 						// Setter for the time frame
 
 		// Getters
 		string getOperation(); 								// Getter for the operation
         string getOperationLine(); 							// Getter for the operation line
-        vector<IOWire*> getInputs(); 						// Getter for the inputs
-        IOWire* getOutputs(); 								// Getter for the output
+        vector<Wire*> getInputs(); 						// Getter for the inputs
+        Wire* getOutputs(); 								// Getter for the output
         double getDelay(); 									// Getter for the delay
         int getMaxBitWidth(); 								// Getter for the maximum bit width
         vector<int> getTimeFrame(); 						// Getter for the time frame   
 };
 
 
-class IOWire {
+class Wire {
 	private:
 		string name;
 		string type;
@@ -78,8 +78,8 @@ class IOWire {
 		HwComponent *prev;
 		vector<HwComponent*> next;
 
-		IOWire();
-		IOWire(string name, string type);
+		Wire();
+		Wire(string name, string type);
 
 		void setNext(vector<HwComponent*> next);
 		void addNext(HwComponent *next);
@@ -90,7 +90,7 @@ class IOWire {
 		int getBitWidth();
 		bool getSigned();
 
-		string printIOWire();
+		string printWire();
 		string printBitWidth();
 
 

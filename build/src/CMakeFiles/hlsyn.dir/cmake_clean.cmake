@@ -9,6 +9,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/hlsyn.dir/main.cpp.o.d"
   "CMakeFiles/hlsyn.dir/topModule.cpp.o"
   "CMakeFiles/hlsyn.dir/topModule.cpp.o.d"
+  "CMakeFiles/hlsyn.dir/verilog.cpp.o"
+  "CMakeFiles/hlsyn.dir/verilog.cpp.o.d"
   "hlsyn"
   "hlsyn.pdb"
 )

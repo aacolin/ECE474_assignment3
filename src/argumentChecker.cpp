@@ -1,4 +1,5 @@
 #include "argumentChecker.h"
+using namespace std;
 
 /**
  * @brief Constructs an ArgumentChecker object.
@@ -21,19 +22,19 @@ ArgumentChecker::ArgumentChecker(int argc, char* argv[]) : argc(argc), argv(argv
  */
 bool ArgumentChecker::checkArguments() {
     if (argc != 4) {
-        std::cout << "    Error: The number of input arguments provided is incorrect.\n" << std::endl
-            << "    Usage: hlsyn <cFile> <latency> <verilogFile>\n" << std::endl
-            << "        <cFile>       : Netlist file to convert." << std::endl
-            << "        <latency>     : Scheduling duration constrain." << std::endl
-            << "        <verilogFile> : Output Verilog file." << std::endl;
+        cout << "    Error: The number of input arguments provided is incorrect.\n" << endl
+            << "    Usage: hlsyn <cFile> <latency> <verilogFile>\n" << endl
+            << "        <cFile>       : Netlist file to convert." << endl
+            << "        <latency>     : Scheduling duration constrain." << endl
+            << "        <verilogFile> : Output Verilog file." << endl;
         return false;
     }
 
     try {
-        latency = std::stoi(argv[2]);
+        latency = stoi(argv[2]);
     }
-    catch (std::invalid_argument&) {
-        std::cout << "Invalid input: Expected an integer value for latency, but received: " << argv[2] << std::endl;
+    catch (invalid_argument&) {
+        cout << "Invalid input: Expected an integer value for latency, but received: " << argv[2] << endl;
         return false;
     }
 

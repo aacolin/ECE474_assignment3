@@ -13,10 +13,10 @@ class TopModule {
 		float criticalPathDelay;
 	public:
 		vector<HwComponent*> modules;
-		vector<IOWire> inputs;
-		vector<IOWire> outputs;
-		vector<IOWire> wires;
-		vector<IOWire> registers;
+		vector<Wire> inputs;
+		vector<Wire> outputs;
+		vector<Wire> wires;
+		vector<Wire> registers;
 		vector<float>addSubGraph;
 		vector<float>logicGraph;
 		vector<float>mulGraph;
@@ -25,20 +25,20 @@ class TopModule {
 
 		TopModule();
 
-		void setInputs(vector<IOWire> inputs);
-		void setOutputs(vector<IOWire> outputs);
-		void setWires(vector<IOWire> wires);
-		void setRegisters(vector<IOWire> registers);
+		void setInputs(vector<Wire> inputs);
+		void setOutputs(vector<Wire> outputs);
+		void setWires(vector<Wire> wires);
+		void setRegisters(vector<Wire> registers);
 		void addModule(HwComponent* module);
-		IOWire* findInputWire(const string& wireName);
-		IOWire* findOutputWire(const string& wireName);
-		IOWire* findOutputRegister(const string& wireName);
+		Wire* findInputWire(const string& wireName);
+		Wire* findOutputWire(const string& wireName);
+		Wire* findOutputRegister(const string& wireName);
 
 		void printInputs(ofstream& circuitFile);
 		void printOutputs(ofstream& circuitFile);
 		void printWires(ofstream& circuitFile);
 		void printRegisters(ofstream& circuitFile);
-		void addWire(IOWire& wire);
+		void addWire(Wire& wire);
 		void printModuleName(ofstream& circuitFile, string CircuitName);
 		void printModules(ofstream& circuitFile);
 

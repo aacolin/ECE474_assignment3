@@ -100,8 +100,8 @@ int Parser::ifFinder(int index, vector<string>& lines, TopModule * topModule)
 		}
 	}
 
-	vector<IOWire*> trueWires;
-	vector<IOWire*> falseWires;
+	vector<Wire*> trueWires;
+	vector<Wire*> falseWires;
 	bool inBoth = false; 
 	bool inFile = false; 
 
@@ -111,11 +111,11 @@ int Parser::ifFinder(int index, vector<string>& lines, TopModule * topModule)
 		stringstream inputStream1(operationLine1.second);
 		string outputName1;
 		inputStream1 >> outputName1;
-		IOWire* output1 = topModule->findOutputWire(outputName1);
+		Wire* output1 = topModule->findOutputWire(outputName1);
 		for (auto& operationLine2 : falseComputations) {
 			string outputName2;
 			stringstream(operationLine2.second) >> outputName2;
-			IOWire* output2 = topModule->findOutputWire(outputName2);
+			Wire* output2 = topModule->findOutputWire(outputName2);
 
 			if (outputName1 != outputName2) continue;
 
@@ -125,8 +125,8 @@ int Parser::ifFinder(int index, vector<string>& lines, TopModule * topModule)
 			operationLine1.second.replace(operationLine1.second.find(outputName1 + " ="), (outputName1 + " =").length(), outputName1 + "_True =");
 			operationLine2.second.replace(operationLine2.second.find(outputName2 + " ="), (outputName2 + " =").length(), outputName2 + "_False =");
 
-			IOWire* trueWire = new IOWire(outputName1 + "_True", output1->getType());
-			IOWire* falseWire = new IOWire(outputName1 + "_False", output2->getType());
+			Wire* trueWire = new Wire(outputName1 + "_True", output1->getType());
+			Wire* falseWire = new Wire(outputName1 + "_False", output2->getType());
 			topModule->addWire(*trueWire);
 			topModule->addWire(*falseWire);
 
@@ -137,8 +137,8 @@ int Parser::ifFinder(int index, vector<string>& lines, TopModule * topModule)
 			topModule->addModule(trueModule);
 			topModule->addModule(falseModule);
 
-			vector<IOWire*> inputWires = {trueWire, falseWire, topModule->findInputWire(ifVariable)};
-			IOWire* outputWire = topModule->findOutputWire(outputName1);
+			vector<Wire*> inputWires = {trueWire, falseWire, topModule->findInputWire(ifVariable)};
+			Wire* outputWire = topModule->findOutputWire(outputName1);
 			string operationString = outputName1 + " = " + ifVariable + " ? " + outputName1 + "_True" + " : " + outputName1 + "_False";
 			HwComponent* mux = new  HwComponent("MUX", inputWires, outputWire, operationString);
 			topModule->addModule(mux);
@@ -148,13 +148,13 @@ int Parser::ifFinder(int index, vector<string>& lines, TopModule * topModule)
 				stringstream inputStream2(lines.at(i));
 				string outputName2;
 				inputStream2 >> outputName2;
-				IOWire* output2 = topModule->findOutputWire(outputName2);
+				Wire* output2 = topModule->findOutputWire(outputName2);
 				if (outputName1 == outputName2 && i != operationLine1.first) {
 					if (i < operationLine1.first) { // Will go in here if the matching statement is before the if statement
 						// Create the True module and wire and the false wire
 						operationLine1.second.replace(operationLine1.second.find(outputName1 + " ="), string(outputName1 + " =").length(), outputName1 + "_True ="); // change operation line so has {var_name}_True
-						IOWire* trueWire = new IOWire(outputName1 + "_True", output1->getType()); // creating the new wires that will be inputs into the mux
-						IOWire* falseWire = new IOWire(outputName1 + "_False", output2->getType());
+						Wire* trueWire = new Wire(outputName1 + "_True", output1->getType()); // creating the new wires that will be inputs into the mux
+						Wire* falseWire = new Wire(outputName1 + "_False", output2->getType());
 						falseWire->setNext(topModule->findOutputWire(outputName1)->next); // connected the false wire to where the previous wire was, as that wire will now be the output of the mux
 						falseWire->setPrev(topModule->findOutputWire(outputName1)->prev);
 						// Making previous module be connected to false wire
@@ -169,8 +169,8 @@ int Parser::ifFinder(int index, vector<string>& lines, TopModule * topModule)
 						topModule->addModule(trueModule);
 						
 						// Creating the mux
-						vector<IOWire*> inputWires = { trueWire, falseWire, topModule->findInputWire(ifVariable) };
-						IOWire* outputWire = topModule->findOutputWire(outputName1);
+						vector<Wire*> inputWires = { trueWire, falseWire, topModule->findInputWire(ifVariable) };
+						Wire* outputWire = topModule->findOutputWire(outputName1);
 						string operationString = outputName1 + " = " + ifVariable + " ? " + outputName1 + "_True" + " : " + outputName1 + "_False";
 						HwComponent* mux = new  HwComponent("MUX", inputWires, outputWire, operationString);
 						topModule->addModule(mux);
@@ -182,8 +182,8 @@ int Parser::ifFinder(int index, vector<string>& lines, TopModule * topModule)
 						lines.at(i).replace(lines.at(i).find(outputName1 + " ="), string(outputName1 + " =").length(), outputName1 + "_False =");
 						
 						// Creating both the wires
-						IOWire* trueWire = new IOWire(outputName1 + "_True", output1->getType());
-						IOWire* falseWire = new IOWire(outputName1 + "_False", output2->getType());
+						Wire* trueWire = new Wire(outputName1 + "_True", output1->getType());
+						Wire* falseWire = new Wire(outputName1 + "_False", output2->getType());
 						topModule->addWire(*trueWire);
 						topModule->addWire(*falseWire);
 
@@ -196,8 +196,8 @@ int Parser::ifFinder(int index, vector<string>& lines, TopModule * topModule)
 						topModule->addModule(falseModule);
 
 						// Creating the Mux
-						vector<IOWire*> inputWires = { trueWire, falseWire, topModule->findInputWire(ifVariable) };
-						IOWire* outputWire = topModule->findOutputWire(outputName1);
+						vector<Wire*> inputWires = { trueWire, falseWire, topModule->findInputWire(ifVariable) };
+						Wire* outputWire = topModule->findOutputWire(outputName1);
 						string operationString = outputName1 + " = " + ifVariable + " ? " + outputName1 + "_True" + " : " + outputName1 + "_False";
 						HwComponent* mux = new  HwComponent("MUX", inputWires, outputWire,  operationString);
 						topModule->addModule(mux);
@@ -223,12 +223,12 @@ int Parser::ifFinder(int index, vector<string>& lines, TopModule * topModule)
 	return lineIndex;
 }
 
-vector<IOWire> Parser::parseInput(string inputString)
+vector<Wire> Parser::parseInput(string inputString)
 {
 	
 	stringstream inputStream(inputString);
-	vector<IOWire> inputs;
-	IOWire bufferInput;
+	vector<Wire> inputs;
+	Wire bufferInput;
 	string bufferName;
 	string type;
 	string dummy;
@@ -241,18 +241,18 @@ vector<IOWire> Parser::parseInput(string inputString)
 		{
 			bufferName = bufferName.substr(0, bufferName.length() - 1);
 		}
-		bufferInput = IOWire(bufferName, type);
+		bufferInput = Wire(bufferName, type);
 		inputs.push_back(bufferInput);
 	}
 	return inputs;
 }
 
-vector<IOWire> Parser::parseOutput(string outputString)
+vector<Wire> Parser::parseOutput(string outputString)
 {
 
 	stringstream outputStream(outputString);
-	vector<IOWire> outputs;
-	IOWire bufferOutput;
+	vector<Wire> outputs;
+	Wire bufferOutput;
 	string bufferName;
 	string type;
 	string dummy;
@@ -265,17 +265,17 @@ vector<IOWire> Parser::parseOutput(string outputString)
 		{
 			bufferName = bufferName.substr(0, bufferName.length() - 1);
 		}
-		bufferOutput = IOWire(bufferName, type);
+		bufferOutput = Wire(bufferName, type);
 		outputs.push_back(bufferOutput);
 	}
 	return outputs;
 }
 
-vector<IOWire> Parser::parseWire(string wireString)
+vector<Wire> Parser::parseWire(string wireString)
 {
 	stringstream wireStream(wireString);
-	vector<IOWire> wires;
-	IOWire bufferWire;
+	vector<Wire> wires;
+	Wire bufferWire;
 	string bufferName;
 	string type;
 	string dummy;
@@ -288,17 +288,17 @@ vector<IOWire> Parser::parseWire(string wireString)
 		{
 			bufferName = bufferName.substr(0, bufferName.length() - 1);
 		}
-		bufferWire = IOWire(bufferName, type);
+		bufferWire = Wire(bufferName, type);
 		wires.push_back(bufferWire);
 	}
 	return wires;
 }
 
-vector<IOWire> Parser::parseRegister(string registerString)
+vector<Wire> Parser::parseRegister(string registerString)
 {
 	stringstream registerStream(registerString);
-	vector<IOWire> registers;
-	IOWire bufferWire;
+	vector<Wire> registers;
+	Wire bufferWire;
 	string bufferName;
 	string type;
 	string dummy;
@@ -310,7 +310,7 @@ vector<IOWire> Parser::parseRegister(string registerString)
 		if (!isalnum(bufferName.back()))		{
 			bufferName = bufferName.substr(0, bufferName.length() - 1);
 		}
-		bufferWire = IOWire(bufferName, type);
+		bufferWire = Wire(bufferName, type);
 		registers.push_back(bufferWire);
 	}
 	return registers;
@@ -318,8 +318,8 @@ vector<IOWire> Parser::parseRegister(string registerString)
 HwComponent* Parser::parseOperation(string operationString, TopModule &topModule)
 {
     std::string dummy, operatorChar, inputChar1, inputChar2, inputChar3, outputChar;
-    std::vector<IOWire*> inputWires;
-    IOWire* outputWire;
+    std::vector<Wire*> inputWires;
+    Wire* outputWire;
     std::stringstream ss(operationString);
     HwComponent *opModule = NULL;
 
@@ -331,7 +331,7 @@ HwComponent* Parser::parseOperation(string operationString, TopModule &topModule
     };
 
     auto findAndPushInputWire = [&](const std::string& inputChar) {
-        IOWire* tempInput = topModule.findInputWire(inputChar);
+        Wire* tempInput = topModule.findInputWire(inputChar);
         if (tempInput == NULL) {
             opModule = new HwComponent("ERROR");
             return false;

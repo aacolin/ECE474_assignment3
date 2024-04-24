@@ -13,7 +13,7 @@
 class ArgumentChecker {
 
     public:
-        ArgumentChecker(int argc, char* argv[]);    // Constructor with arguments
+        ArgumentChecker(int argc, char* argv[]);    // Constructor with parameters
         bool checkArguments();                      // Check the validity of the arguments    
         int getLatency() const ;                    // Get the latency argument     
 

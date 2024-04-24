@@ -250,6 +250,30 @@ topModule.cpp.s:
 	cd /home/aaron/GitHub/ECE474_assignment3/build && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/hlsyn.dir/build.make src/CMakeFiles/hlsyn.dir/topModule.cpp.s
 .PHONY : topModule.cpp.s
 
+verilog.o: verilog.cpp.o
+.PHONY : verilog.o
+
+# target to build an object file
+verilog.cpp.o:
+	cd /home/aaron/GitHub/ECE474_assignment3/build && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/hlsyn.dir/build.make src/CMakeFiles/hlsyn.dir/verilog.cpp.o
+.PHONY : verilog.cpp.o
+
+verilog.i: verilog.cpp.i
+.PHONY : verilog.i
+
+# target to preprocess a source file
+verilog.cpp.i:
+	cd /home/aaron/GitHub/ECE474_assignment3/build && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/hlsyn.dir/build.make src/CMakeFiles/hlsyn.dir/verilog.cpp.i
+.PHONY : verilog.cpp.i
+
+verilog.s: verilog.cpp.s
+.PHONY : verilog.s
+
+# target to generate assembly for a file
+verilog.cpp.s:
+	cd /home/aaron/GitHub/ECE474_assignment3/build && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/hlsyn.dir/build.make src/CMakeFiles/hlsyn.dir/verilog.cpp.s
+.PHONY : verilog.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -274,6 +298,9 @@ help:
 	@echo "... topModule.o"
 	@echo "... topModule.i"
 	@echo "... topModule.s"
+	@echo "... verilog.o"
+	@echo "... verilog.i"
+	@echo "... verilog.s"
 .PHONY : help
 
 

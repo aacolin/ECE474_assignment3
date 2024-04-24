@@ -5,25 +5,25 @@ TopModule::TopModule() {
     wires.reserve(100);
 }
 
-void TopModule::setInputs(vector<IOWire> inputs)
+void TopModule::setInputs(vector<Wire> inputs)
 {
 	this->inputs.insert(this->inputs.end(), inputs.begin(), inputs.end());
 	return;
 }
 
-void TopModule::setOutputs(vector<IOWire> outputs)
+void TopModule::setOutputs(vector<Wire> outputs)
 {
 	this->outputs.insert(this->outputs.end(), outputs.begin(), outputs.end());
 	return;
 }
 
-void TopModule::setWires(vector<IOWire> wires)
+void TopModule::setWires(vector<Wire> wires)
 {
 	this->wires.insert(this->wires.end(), wires.begin(), wires.end());
 	return;
 }
 
-void TopModule::setRegisters(vector<IOWire> registers)
+void TopModule::setRegisters(vector<Wire> registers)
 {
 	this->registers.insert(this->registers.end(), registers.begin(), registers.end());
 	return;
@@ -34,7 +34,7 @@ void TopModule::addModule(HwComponent* module)
 	this->modules.push_back(module);
 }
 
-IOWire* TopModule::findInputWire(const string& wireName)
+Wire* TopModule::findInputWire(const string& wireName)
 {
     for (auto& input : this->inputs) {
         if (input.getName() == wireName) {
@@ -49,7 +49,7 @@ IOWire* TopModule::findInputWire(const string& wireName)
     }
     return nullptr;
 }
-IOWire* TopModule::findOutputWire(const string& wireName)
+Wire* TopModule::findOutputWire(const string& wireName)
 {
     for (auto& output : this->outputs){
         if (output.getName() == wireName){
@@ -66,7 +66,7 @@ IOWire* TopModule::findOutputWire(const string& wireName)
     return nullptr;
 }
 
-IOWire* TopModule::findOutputRegister(const string& wireName)
+Wire* TopModule::findOutputRegister(const string& wireName)
 {
     for (auto& reg : this->registers){
         if (reg.getName() == wireName){
@@ -83,7 +83,7 @@ void TopModule::printInputs(ofstream& circuitFile)
 
 	for (i = 0; i < this->inputs.size(); i++)
 	{
-		circuitFile << "\tinput " << this->inputs.at(i).printIOWire() << ";" << endl;
+		circuitFile << "\tinput " << this->inputs.at(i).printWire() << ";" << endl;
 	}
 }
 
@@ -93,7 +93,7 @@ void TopModule::printOutputs(ofstream& circuitFile)
 
 	for (i = 0; i < this->outputs.size(); i++)
 	{
-		circuitFile << "\toutput reg " << this->outputs.at(i).printIOWire() << ";" << endl;
+		circuitFile << "\toutput reg " << this->outputs.at(i).printWire() << ";" << endl;
 	}
 
 }
@@ -104,7 +104,7 @@ void TopModule::printWires(ofstream& circuitFile)
 
 	for (i = 0; i < this->wires.size(); i++)
 	{
-		circuitFile << "\treg " << this->wires.at(i).printIOWire() << ";" << endl;
+		circuitFile << "\treg " << this->wires.at(i).printWire() << ";" << endl;
 	}
 }
 
@@ -114,11 +114,11 @@ void TopModule::printRegisters(ofstream & circuitFile)
 
 	for (i = 0; i < this->registers.size(); i++)
 	{
-		circuitFile << "\registers " << this->registers.at(i).printIOWire() << ";" << endl;
+		circuitFile << "\registers " << this->registers.at(i).printWire() << ";" << endl;
 	}
 }
 
-void TopModule::addWire(IOWire& wire)
+void TopModule::addWire(Wire& wire)
 {
 	this->wires.push_back(wire);
 }

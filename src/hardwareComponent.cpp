@@ -13,12 +13,12 @@
 
 
 HwComponent::HwComponent()
-    : operation(""), inputs(), output(new IOWire()), delay(0), 
+    : operation(""), inputs(), output(new Wire()), delay(0), 
       maxBitWidth(0), isSigned(false), timeFrame()
 {}
 
 HwComponent::HwComponent(string operation)
-    : operation(operation), inputs(), output(new IOWire()), delay(0), 
+    : operation(operation), inputs(), output(new Wire()), delay(0), 
       maxBitWidth(0), isSigned(false), timeFrame()
 {}
 
@@ -35,7 +35,7 @@ HwComponent::HwComponent(string operation)
  * @param operationLine The line of code that represents the operation.
  */
 
-HwComponent::HwComponent(string operation, vector<IOWire*> inputs, IOWire *output, string operationLine)
+HwComponent::HwComponent(string operation, vector<Wire*> inputs, Wire *output, string operationLine)
     : operation(operation), inputs(inputs), output(output), operationLine(operationLine), 
       isSigned(output->getSigned()), maxBitWidth(output->getBitWidth()), timeFrame(0)
 {
@@ -180,15 +180,15 @@ void HwComponent::PrintModuleStatement(ofstream& circuitFile, int moduleNum)
 
 // Setters
 void HwComponent::setOperationLine(string operationLine) { this->operationLine = operationLine; }
-void HwComponent::setOutput(IOWire * output) { this->output = output; }
+void HwComponent::setOutput(Wire * output) { this->output = output; }
 void HwComponent::setOperation(string operation) { this->operation = operation; }
 void HwComponent::setTimeFrame(int edge) { timeFrame.push_back(edge); }
 
 // Getters
 string HwComponent::getOperation() { return this->operation; }
 string HwComponent::getOperationLine() { return this->operationLine; }
-vector<IOWire*> HwComponent::getInputs() { return this->inputs; }
-IOWire* HwComponent::getOutputs() { return this->output; }
+vector<Wire*> HwComponent::getInputs() { return this->inputs; }
+Wire* HwComponent::getOutputs() { return this->output; }
 double HwComponent::getDelay() { return this->delay; }
 int HwComponent::getMaxBitWidth() { return this->maxBitWidth; }
 vector<int> HwComponent::getTimeFrame() { return this->timeFrame; }
@@ -200,9 +200,9 @@ vector<int> HwComponent::getTimeFrame() { return this->timeFrame; }
 
 
 
-IOWire::IOWire() : name(""), type(""), prev(nullptr), bitWidth(0), isSigned(false) {}
+Wire::Wire() : name(""), type(""), prev(nullptr), bitWidth(0), isSigned(false) {}
 
-IOWire::IOWire(string name, string type) : name(name), type(type), prev(nullptr), isSigned(false)
+Wire::Wire(string name, string type) : name(name), type(type), prev(nullptr), isSigned(false)
 {
     size_t pos = type.find("UInt");
     if (pos != std::string::npos) 
@@ -216,38 +216,38 @@ IOWire::IOWire(string name, string type) : name(name), type(type), prev(nullptr)
     }
 }
 
-void IOWire::setPrev(HwComponent *prev){
+void Wire::setPrev(HwComponent *prev){
 	this->prev = prev;
 	return;
 }
 
-void IOWire::setName(string name){
+void Wire::setName(string name){
 	this->name = name;
 }
 
-void IOWire::setNext(vector<HwComponent*> next){
+void Wire::setNext(vector<HwComponent*> next){
 	this->next = next;
 	return;
 }
 
-void IOWire::addNext(HwComponent *next){
+void Wire::addNext(HwComponent *next){
 	this->next.push_back(next);
 	return;
 }
 
-string IOWire::getName(){
+string Wire::getName(){
 	return this->name;
 }
 
-string IOWire::getType(){
+string Wire::getType(){
 	return this->type;
 }
 
-int IOWire::getBitWidth(){
+int Wire::getBitWidth(){
 	return this->bitWidth;
 }
 
-string IOWire::printIOWire(){
+string Wire::printWire(){
 	string retString = "";
 
 	if (this->isSigned)	{
@@ -263,7 +263,7 @@ string IOWire::printIOWire(){
 
 
 
-string IOWire::printBitWidth() {
+string Wire::printBitWidth() {
     // Create a stringstream to build the bit width string
     stringstream bitWidthStream;
 
@@ -281,6 +281,6 @@ string IOWire::printBitWidth() {
 }
 
 
-bool IOWire::getSigned(){
+bool Wire::getSigned(){
 	return this->isSigned;
 }

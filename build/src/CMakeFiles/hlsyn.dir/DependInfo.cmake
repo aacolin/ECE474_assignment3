@@ -13,6 +13,7 @@ set(CMAKE_DEPENDS_DEPENDENCY_FILES
   "/home/aaron/GitHub/ECE474_assignment3/src/hardwareComponent.cpp" "src/CMakeFiles/hlsyn.dir/hardwareComponent.cpp.o" "gcc" "src/CMakeFiles/hlsyn.dir/hardwareComponent.cpp.o.d"
   "/home/aaron/GitHub/ECE474_assignment3/src/main.cpp" "src/CMakeFiles/hlsyn.dir/main.cpp.o" "gcc" "src/CMakeFiles/hlsyn.dir/main.cpp.o.d"
   "/home/aaron/GitHub/ECE474_assignment3/src/topModule.cpp" "src/CMakeFiles/hlsyn.dir/topModule.cpp.o" "gcc" "src/CMakeFiles/hlsyn.dir/topModule.cpp.o.d"
+  "/home/aaron/GitHub/ECE474_assignment3/src/verilog.cpp" "src/CMakeFiles/hlsyn.dir/verilog.cpp.o" "gcc" "src/CMakeFiles/hlsyn.dir/verilog.cpp.o.d"
   )
 
 # Targets to which this target links which contain Fortran sources.
