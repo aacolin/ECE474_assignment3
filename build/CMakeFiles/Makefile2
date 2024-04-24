@@ -96,12 +96,12 @@ src/clean: src/CMakeFiles/hlsyn.dir/clean
 src/CMakeFiles/hlsyn.dir/all:
 	$(MAKE) $(MAKESILENT) -f src/CMakeFiles/hlsyn.dir/build.make src/CMakeFiles/hlsyn.dir/depend
 	$(MAKE) $(MAKESILENT) -f src/CMakeFiles/hlsyn.dir/build.make src/CMakeFiles/hlsyn.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/aaron/GitHub/ECE474_assignment3/build/CMakeFiles --progress-num=1,2,3,4,5,6,7 "Built target hlsyn"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/aaron/GitHub/ECE474_assignment3/build/CMakeFiles --progress-num=1,2,3,4,5,6 "Built target hlsyn"
 .PHONY : src/CMakeFiles/hlsyn.dir/all
 
 # Build rule for subdir invocation for target.
 src/CMakeFiles/hlsyn.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/aaron/GitHub/ECE474_assignment3/build/CMakeFiles 7
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/aaron/GitHub/ECE474_assignment3/build/CMakeFiles 6
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 src/CMakeFiles/hlsyn.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/aaron/GitHub/ECE474_assignment3/build/CMakeFiles 0
 .PHONY : src/CMakeFiles/hlsyn.dir/rule

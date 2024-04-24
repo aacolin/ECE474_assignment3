@@ -130,78 +130,6 @@ hlsyn/fast:
 	cd /home/aaron/GitHub/ECE474_assignment3/build && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/hlsyn.dir/build.make src/CMakeFiles/hlsyn.dir/build
 .PHONY : hlsyn/fast
 
-IOWire.o: IOWire.cpp.o
-.PHONY : IOWire.o
-
-# target to build an object file
-IOWire.cpp.o:
-	cd /home/aaron/GitHub/ECE474_assignment3/build && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/hlsyn.dir/build.make src/CMakeFiles/hlsyn.dir/IOWire.cpp.o
-.PHONY : IOWire.cpp.o
-
-IOWire.i: IOWire.cpp.i
-.PHONY : IOWire.i
-
-# target to preprocess a source file
-IOWire.cpp.i:
-	cd /home/aaron/GitHub/ECE474_assignment3/build && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/hlsyn.dir/build.make src/CMakeFiles/hlsyn.dir/IOWire.cpp.i
-.PHONY : IOWire.cpp.i
-
-IOWire.s: IOWire.cpp.s
-.PHONY : IOWire.s
-
-# target to generate assembly for a file
-IOWire.cpp.s:
-	cd /home/aaron/GitHub/ECE474_assignment3/build && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/hlsyn.dir/build.make src/CMakeFiles/hlsyn.dir/IOWire.cpp.s
-.PHONY : IOWire.cpp.s
-
-Module.o: Module.cpp.o
-.PHONY : Module.o
-
-# target to build an object file
-Module.cpp.o:
-	cd /home/aaron/GitHub/ECE474_assignment3/build && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/hlsyn.dir/build.make src/CMakeFiles/hlsyn.dir/Module.cpp.o
-.PHONY : Module.cpp.o
-
-Module.i: Module.cpp.i
-.PHONY : Module.i
-
-# target to preprocess a source file
-Module.cpp.i:
-	cd /home/aaron/GitHub/ECE474_assignment3/build && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/hlsyn.dir/build.make src/CMakeFiles/hlsyn.dir/Module.cpp.i
-.PHONY : Module.cpp.i
-
-Module.s: Module.cpp.s
-.PHONY : Module.s
-
-# target to generate assembly for a file
-Module.cpp.s:
-	cd /home/aaron/GitHub/ECE474_assignment3/build && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/hlsyn.dir/build.make src/CMakeFiles/hlsyn.dir/Module.cpp.s
-.PHONY : Module.cpp.s
-
-TopModule.o: TopModule.cpp.o
-.PHONY : TopModule.o
-
-# target to build an object file
-TopModule.cpp.o:
-	cd /home/aaron/GitHub/ECE474_assignment3/build && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/hlsyn.dir/build.make src/CMakeFiles/hlsyn.dir/TopModule.cpp.o
-.PHONY : TopModule.cpp.o
-
-TopModule.i: TopModule.cpp.i
-.PHONY : TopModule.i
-
-# target to preprocess a source file
-TopModule.cpp.i:
-	cd /home/aaron/GitHub/ECE474_assignment3/build && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/hlsyn.dir/build.make src/CMakeFiles/hlsyn.dir/TopModule.cpp.i
-.PHONY : TopModule.cpp.i
-
-TopModule.s: TopModule.cpp.s
-.PHONY : TopModule.s
-
-# target to generate assembly for a file
-TopModule.cpp.s:
-	cd /home/aaron/GitHub/ECE474_assignment3/build && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/hlsyn.dir/build.make src/CMakeFiles/hlsyn.dir/TopModule.cpp.s
-.PHONY : TopModule.cpp.s
-
 argumentChecker.o: argumentChecker.cpp.o
 .PHONY : argumentChecker.o
 
@@ -225,6 +153,54 @@ argumentChecker.s: argumentChecker.cpp.s
 argumentChecker.cpp.s:
 	cd /home/aaron/GitHub/ECE474_assignment3/build && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/hlsyn.dir/build.make src/CMakeFiles/hlsyn.dir/argumentChecker.cpp.s
 .PHONY : argumentChecker.cpp.s
+
+circuitParser.o: circuitParser.cpp.o
+.PHONY : circuitParser.o
+
+# target to build an object file
+circuitParser.cpp.o:
+	cd /home/aaron/GitHub/ECE474_assignment3/build && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/hlsyn.dir/build.make src/CMakeFiles/hlsyn.dir/circuitParser.cpp.o
+.PHONY : circuitParser.cpp.o
+
+circuitParser.i: circuitParser.cpp.i
+.PHONY : circuitParser.i
+
+# target to preprocess a source file
+circuitParser.cpp.i:
+	cd /home/aaron/GitHub/ECE474_assignment3/build && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/hlsyn.dir/build.make src/CMakeFiles/hlsyn.dir/circuitParser.cpp.i
+.PHONY : circuitParser.cpp.i
+
+circuitParser.s: circuitParser.cpp.s
+.PHONY : circuitParser.s
+
+# target to generate assembly for a file
+circuitParser.cpp.s:
+	cd /home/aaron/GitHub/ECE474_assignment3/build && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/hlsyn.dir/build.make src/CMakeFiles/hlsyn.dir/circuitParser.cpp.s
+.PHONY : circuitParser.cpp.s
+
+hardwareComponent.o: hardwareComponent.cpp.o
+.PHONY : hardwareComponent.o
+
+# target to build an object file
+hardwareComponent.cpp.o:
+	cd /home/aaron/GitHub/ECE474_assignment3/build && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/hlsyn.dir/build.make src/CMakeFiles/hlsyn.dir/hardwareComponent.cpp.o
+.PHONY : hardwareComponent.cpp.o
+
+hardwareComponent.i: hardwareComponent.cpp.i
+.PHONY : hardwareComponent.i
+
+# target to preprocess a source file
+hardwareComponent.cpp.i:
+	cd /home/aaron/GitHub/ECE474_assignment3/build && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/hlsyn.dir/build.make src/CMakeFiles/hlsyn.dir/hardwareComponent.cpp.i
+.PHONY : hardwareComponent.cpp.i
+
+hardwareComponent.s: hardwareComponent.cpp.s
+.PHONY : hardwareComponent.s
+
+# target to generate assembly for a file
+hardwareComponent.cpp.s:
+	cd /home/aaron/GitHub/ECE474_assignment3/build && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/hlsyn.dir/build.make src/CMakeFiles/hlsyn.dir/hardwareComponent.cpp.s
+.PHONY : hardwareComponent.cpp.s
 
 main.o: main.cpp.o
 .PHONY : main.o
@@ -250,29 +226,29 @@ main.cpp.s:
 	cd /home/aaron/GitHub/ECE474_assignment3/build && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/hlsyn.dir/build.make src/CMakeFiles/hlsyn.dir/main.cpp.s
 .PHONY : main.cpp.s
 
-parser.o: parser.cpp.o
-.PHONY : parser.o
+topModule.o: topModule.cpp.o
+.PHONY : topModule.o
 
 # target to build an object file
-parser.cpp.o:
-	cd /home/aaron/GitHub/ECE474_assignment3/build && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/hlsyn.dir/build.make src/CMakeFiles/hlsyn.dir/parser.cpp.o
-.PHONY : parser.cpp.o
+topModule.cpp.o:
+	cd /home/aaron/GitHub/ECE474_assignment3/build && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/hlsyn.dir/build.make src/CMakeFiles/hlsyn.dir/topModule.cpp.o
+.PHONY : topModule.cpp.o
 
-parser.i: parser.cpp.i
-.PHONY : parser.i
+topModule.i: topModule.cpp.i
+.PHONY : topModule.i
 
 # target to preprocess a source file
-parser.cpp.i:
-	cd /home/aaron/GitHub/ECE474_assignment3/build && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/hlsyn.dir/build.make src/CMakeFiles/hlsyn.dir/parser.cpp.i
-.PHONY : parser.cpp.i
+topModule.cpp.i:
+	cd /home/aaron/GitHub/ECE474_assignment3/build && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/hlsyn.dir/build.make src/CMakeFiles/hlsyn.dir/topModule.cpp.i
+.PHONY : topModule.cpp.i
 
-parser.s: parser.cpp.s
-.PHONY : parser.s
+topModule.s: topModule.cpp.s
+.PHONY : topModule.s
 
 # target to generate assembly for a file
-parser.cpp.s:
-	cd /home/aaron/GitHub/ECE474_assignment3/build && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/hlsyn.dir/build.make src/CMakeFiles/hlsyn.dir/parser.cpp.s
-.PHONY : parser.cpp.s
+topModule.cpp.s:
+	cd /home/aaron/GitHub/ECE474_assignment3/build && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/hlsyn.dir/build.make src/CMakeFiles/hlsyn.dir/topModule.cpp.s
+.PHONY : topModule.cpp.s
 
 # Help Target
 help:
@@ -283,24 +259,21 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... hlsyn"
-	@echo "... IOWire.o"
-	@echo "... IOWire.i"
-	@echo "... IOWire.s"
-	@echo "... Module.o"
-	@echo "... Module.i"
-	@echo "... Module.s"
-	@echo "... TopModule.o"
-	@echo "... TopModule.i"
-	@echo "... TopModule.s"
 	@echo "... argumentChecker.o"
 	@echo "... argumentChecker.i"
 	@echo "... argumentChecker.s"
+	@echo "... circuitParser.o"
+	@echo "... circuitParser.i"
+	@echo "... circuitParser.s"
+	@echo "... hardwareComponent.o"
+	@echo "... hardwareComponent.i"
+	@echo "... hardwareComponent.s"
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"
-	@echo "... parser.o"
-	@echo "... parser.i"
-	@echo "... parser.s"
+	@echo "... topModule.o"
+	@echo "... topModule.i"
+	@echo "... topModule.s"
 .PHONY : help
 
 

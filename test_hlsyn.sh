@@ -24,58 +24,72 @@ cd $working_dir/testing
 # Test 1
 # hlsyn with no arguments
 output=$(./hlsyn)
-expected_output="Error, incorrect number of input arguments.
+expected_output="    Error: The number of input arguments provided is incorrect.
 
-Syntax:  hlsyn cFile latency verilogFile
+    Usage: hlsyn <cFile> <latency> <verilogFile>
 
-  cFile       : The path to the netlist you wish to convert.
-  latency     : How long the graph has to be scheduled.
-  verilogFile : The path to for the output verilogFile."
+        <cFile>       : Netlist file to convert.
+        <latency>     : Scheduling duration constrain.
+        <verilogFile> : Output Verilog file."
 
 if [ "$output" = "$expected_output" ]; then
     echo -e "| Test 1: hlsyn with no arguments                  |  \e[32mPASSED\e[0m  |"
 else
     echo -e "| Test 1: hlsyn with no arguments                  |  \e[31mFAILED\e[0m  |"
+    echo -e "| Test 1 Error : output != expected_output                               |\n"
+    diff <(echo "$output") <(echo "$expected_output")
 fi
 
 
 # Test 2
 # hlsyn with 1 argument (cFile)
 output=$(./hlsyn error1.c)
-expected_output="Error, incorrect number of input arguments.
+expected_output="    Error: The number of input arguments provided is incorrect.
 
-Syntax:  hlsyn cFile latency verilogFile
+    Usage: hlsyn <cFile> <latency> <verilogFile>
 
-  cFile       : The path to the netlist you wish to convert.
-  latency     : How long the graph has to be scheduled.
-  verilogFile : The path to for the output verilogFile."
+        <cFile>       : Netlist file to convert.
+        <latency>     : Scheduling duration constrain.
+        <verilogFile> : Output Verilog file."
 
 if [ "$output" = "$expected_output" ]; then
     echo -e "| Test 2: hlsyn with 1 arguments                   |  \e[32mPASSED\e[0m  |"
 else
-    echo -e "| Test 2: hlsyn with 1 arguments                   |  \e[31mFAILED\e[0m  |"
+    echo -e "| Test 2 Error : output != expected_output                               |\n"
+    diff <(echo "$output") <(echo "$expected_output")
 fi
 
 
 # Test 3
 # hlsyn with 2 arguments (cFile, latency)
 output=$(./hlsyn error1.c 10)
-expected_output="Error, incorrect number of input arguments.
+expected_output="    Error: The number of input arguments provided is incorrect.
 
-Syntax:  hlsyn cFile latency verilogFile
+    Usage: hlsyn <cFile> <latency> <verilogFile>
 
-  cFile       : The path to the netlist you wish to convert.
-  latency     : How long the graph has to be scheduled.
-  verilogFile : The path to for the output verilogFile."
+        <cFile>       : Netlist file to convert.
+        <latency>     : Scheduling duration constrain.
+        <verilogFile> : Output Verilog file."
 
 if [ "$output" = "$expected_output" ]; then
     echo -e "| Test 3: hlsyn with 2 arguments                   |  \e[32mPASSED\e[0m  |"
 else
-    echo -e "| Test 3: hlsyn with 2 arguments                   |  \e[31mFAILED\e[0m  |"
+    echo -e "| Test 3: Error : output != expected_output        |  \e[31mFAILED\e[0m  |"
+    diff <(echo "$output") <(echo "$expected_output")
 fi
 
-# Test 3b
+# Test 3a
+# # hlsyn with 3 arguments (cFile, latency (invalid, not a number), verilogFile)
+output=$(./hlsyn error1.c q10 error1.v)
+expected_output="Invalid input: Expected an integer value for latency, but received: q10" ;
 
+if [ "$output" = "$expected_output" ]; then
+    echo -e "| Test 3b: hlsyn with invalid latency              |  \e[32mPASSED\e[0m  |"
+else
+    echo -e "| Test 3b: Error output != expected_output         |  \e[31mFAILED\e[0m  |"
+    echo -e "| Test 3b Error : output != expected_output                              |\n"
+    diff <(echo "$output") <(echo "$expected_output")
+fi
 
 # Test 4
 # hlsyn with 3 arguments (cFile, latency, verilogFile) and invalid netlist (error1.c)
@@ -86,6 +100,7 @@ if [ "$output" = "$expected_output" ]; then
 else
     echo "| Test 4: hlsyn error test (error1.c)              |  \e[31mFAILED\e[0m  |"
 fi
+
 
 
 # Test 5
@@ -109,6 +124,17 @@ else
     echo "| Test 6: hlsyn error test (error3.c)              |  \e[31mFAILED\e[0m  |"
 fi
 
+# Test 6a
+# hlsyn with 3 arguments (cFile, latency, verilogFile) empty netlist (error4.c)
+output=$(./hlsyn error4.c 10 error4.v)
+expected_output="Error: Unable to open the file 'error4.c'. 
+Please ensure the file exists, is not in use by another program, and is not empty."
+if [ "$output" = "$expected_output" ]; then
+    echo "| Test 6a: hlsyn error test (error4.c)             |  \e[32mPASSED\e[0m  |"
+else
+    echo "| Test 6a: Error : output != expected_output       |  \e[31mFAILED\e[0m  |"
+    diff <(echo "$output") <(echo "$expected_output")
+fi
 
 # Test 7
 # hlsyn with 3 arguments (cFile, latency, verilogFile) and valid netlist (test_if1.c)

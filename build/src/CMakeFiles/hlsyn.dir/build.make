@@ -69,52 +69,10 @@ include src/CMakeFiles/hlsyn.dir/progress.make
 # Include the compile flags for this target's objects.
 include src/CMakeFiles/hlsyn.dir/flags.make
 
-src/CMakeFiles/hlsyn.dir/IOWire.cpp.o: src/CMakeFiles/hlsyn.dir/flags.make
-src/CMakeFiles/hlsyn.dir/IOWire.cpp.o: /home/aaron/GitHub/ECE474_assignment3/src/IOWire.cpp
-src/CMakeFiles/hlsyn.dir/IOWire.cpp.o: src/CMakeFiles/hlsyn.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/aaron/GitHub/ECE474_assignment3/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object src/CMakeFiles/hlsyn.dir/IOWire.cpp.o"
-	cd /home/aaron/GitHub/ECE474_assignment3/build/src && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT src/CMakeFiles/hlsyn.dir/IOWire.cpp.o -MF CMakeFiles/hlsyn.dir/IOWire.cpp.o.d -o CMakeFiles/hlsyn.dir/IOWire.cpp.o -c /home/aaron/GitHub/ECE474_assignment3/src/IOWire.cpp
-
-src/CMakeFiles/hlsyn.dir/IOWire.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/hlsyn.dir/IOWire.cpp.i"
-	cd /home/aaron/GitHub/ECE474_assignment3/build/src && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/aaron/GitHub/ECE474_assignment3/src/IOWire.cpp > CMakeFiles/hlsyn.dir/IOWire.cpp.i
-
-src/CMakeFiles/hlsyn.dir/IOWire.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/hlsyn.dir/IOWire.cpp.s"
-	cd /home/aaron/GitHub/ECE474_assignment3/build/src && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/aaron/GitHub/ECE474_assignment3/src/IOWire.cpp -o CMakeFiles/hlsyn.dir/IOWire.cpp.s
-
-src/CMakeFiles/hlsyn.dir/Module.cpp.o: src/CMakeFiles/hlsyn.dir/flags.make
-src/CMakeFiles/hlsyn.dir/Module.cpp.o: /home/aaron/GitHub/ECE474_assignment3/src/Module.cpp
-src/CMakeFiles/hlsyn.dir/Module.cpp.o: src/CMakeFiles/hlsyn.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/aaron/GitHub/ECE474_assignment3/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object src/CMakeFiles/hlsyn.dir/Module.cpp.o"
-	cd /home/aaron/GitHub/ECE474_assignment3/build/src && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT src/CMakeFiles/hlsyn.dir/Module.cpp.o -MF CMakeFiles/hlsyn.dir/Module.cpp.o.d -o CMakeFiles/hlsyn.dir/Module.cpp.o -c /home/aaron/GitHub/ECE474_assignment3/src/Module.cpp
-
-src/CMakeFiles/hlsyn.dir/Module.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/hlsyn.dir/Module.cpp.i"
-	cd /home/aaron/GitHub/ECE474_assignment3/build/src && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/aaron/GitHub/ECE474_assignment3/src/Module.cpp > CMakeFiles/hlsyn.dir/Module.cpp.i
-
-src/CMakeFiles/hlsyn.dir/Module.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/hlsyn.dir/Module.cpp.s"
-	cd /home/aaron/GitHub/ECE474_assignment3/build/src && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/aaron/GitHub/ECE474_assignment3/src/Module.cpp -o CMakeFiles/hlsyn.dir/Module.cpp.s
-
-src/CMakeFiles/hlsyn.dir/TopModule.cpp.o: src/CMakeFiles/hlsyn.dir/flags.make
-src/CMakeFiles/hlsyn.dir/TopModule.cpp.o: /home/aaron/GitHub/ECE474_assignment3/src/TopModule.cpp
-src/CMakeFiles/hlsyn.dir/TopModule.cpp.o: src/CMakeFiles/hlsyn.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/aaron/GitHub/ECE474_assignment3/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object src/CMakeFiles/hlsyn.dir/TopModule.cpp.o"
-	cd /home/aaron/GitHub/ECE474_assignment3/build/src && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT src/CMakeFiles/hlsyn.dir/TopModule.cpp.o -MF CMakeFiles/hlsyn.dir/TopModule.cpp.o.d -o CMakeFiles/hlsyn.dir/TopModule.cpp.o -c /home/aaron/GitHub/ECE474_assignment3/src/TopModule.cpp
-
-src/CMakeFiles/hlsyn.dir/TopModule.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/hlsyn.dir/TopModule.cpp.i"
-	cd /home/aaron/GitHub/ECE474_assignment3/build/src && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/aaron/GitHub/ECE474_assignment3/src/TopModule.cpp > CMakeFiles/hlsyn.dir/TopModule.cpp.i
-
-src/CMakeFiles/hlsyn.dir/TopModule.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/hlsyn.dir/TopModule.cpp.s"
-	cd /home/aaron/GitHub/ECE474_assignment3/build/src && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/aaron/GitHub/ECE474_assignment3/src/TopModule.cpp -o CMakeFiles/hlsyn.dir/TopModule.cpp.s
-
 src/CMakeFiles/hlsyn.dir/argumentChecker.cpp.o: src/CMakeFiles/hlsyn.dir/flags.make
 src/CMakeFiles/hlsyn.dir/argumentChecker.cpp.o: /home/aaron/GitHub/ECE474_assignment3/src/argumentChecker.cpp
 src/CMakeFiles/hlsyn.dir/argumentChecker.cpp.o: src/CMakeFiles/hlsyn.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/aaron/GitHub/ECE474_assignment3/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object src/CMakeFiles/hlsyn.dir/argumentChecker.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/aaron/GitHub/ECE474_assignment3/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object src/CMakeFiles/hlsyn.dir/argumentChecker.cpp.o"
 	cd /home/aaron/GitHub/ECE474_assignment3/build/src && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT src/CMakeFiles/hlsyn.dir/argumentChecker.cpp.o -MF CMakeFiles/hlsyn.dir/argumentChecker.cpp.o.d -o CMakeFiles/hlsyn.dir/argumentChecker.cpp.o -c /home/aaron/GitHub/ECE474_assignment3/src/argumentChecker.cpp
 
 src/CMakeFiles/hlsyn.dir/argumentChecker.cpp.i: cmake_force
@@ -125,10 +83,38 @@ src/CMakeFiles/hlsyn.dir/argumentChecker.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/hlsyn.dir/argumentChecker.cpp.s"
 	cd /home/aaron/GitHub/ECE474_assignment3/build/src && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/aaron/GitHub/ECE474_assignment3/src/argumentChecker.cpp -o CMakeFiles/hlsyn.dir/argumentChecker.cpp.s
 
+src/CMakeFiles/hlsyn.dir/circuitParser.cpp.o: src/CMakeFiles/hlsyn.dir/flags.make
+src/CMakeFiles/hlsyn.dir/circuitParser.cpp.o: /home/aaron/GitHub/ECE474_assignment3/src/circuitParser.cpp
+src/CMakeFiles/hlsyn.dir/circuitParser.cpp.o: src/CMakeFiles/hlsyn.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/aaron/GitHub/ECE474_assignment3/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object src/CMakeFiles/hlsyn.dir/circuitParser.cpp.o"
+	cd /home/aaron/GitHub/ECE474_assignment3/build/src && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT src/CMakeFiles/hlsyn.dir/circuitParser.cpp.o -MF CMakeFiles/hlsyn.dir/circuitParser.cpp.o.d -o CMakeFiles/hlsyn.dir/circuitParser.cpp.o -c /home/aaron/GitHub/ECE474_assignment3/src/circuitParser.cpp
+
+src/CMakeFiles/hlsyn.dir/circuitParser.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/hlsyn.dir/circuitParser.cpp.i"
+	cd /home/aaron/GitHub/ECE474_assignment3/build/src && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/aaron/GitHub/ECE474_assignment3/src/circuitParser.cpp > CMakeFiles/hlsyn.dir/circuitParser.cpp.i
+
+src/CMakeFiles/hlsyn.dir/circuitParser.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/hlsyn.dir/circuitParser.cpp.s"
+	cd /home/aaron/GitHub/ECE474_assignment3/build/src && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/aaron/GitHub/ECE474_assignment3/src/circuitParser.cpp -o CMakeFiles/hlsyn.dir/circuitParser.cpp.s
+
+src/CMakeFiles/hlsyn.dir/hardwareComponent.cpp.o: src/CMakeFiles/hlsyn.dir/flags.make
+src/CMakeFiles/hlsyn.dir/hardwareComponent.cpp.o: /home/aaron/GitHub/ECE474_assignment3/src/hardwareComponent.cpp
+src/CMakeFiles/hlsyn.dir/hardwareComponent.cpp.o: src/CMakeFiles/hlsyn.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/aaron/GitHub/ECE474_assignment3/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object src/CMakeFiles/hlsyn.dir/hardwareComponent.cpp.o"
+	cd /home/aaron/GitHub/ECE474_assignment3/build/src && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT src/CMakeFiles/hlsyn.dir/hardwareComponent.cpp.o -MF CMakeFiles/hlsyn.dir/hardwareComponent.cpp.o.d -o CMakeFiles/hlsyn.dir/hardwareComponent.cpp.o -c /home/aaron/GitHub/ECE474_assignment3/src/hardwareComponent.cpp
+
+src/CMakeFiles/hlsyn.dir/hardwareComponent.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/hlsyn.dir/hardwareComponent.cpp.i"
+	cd /home/aaron/GitHub/ECE474_assignment3/build/src && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/aaron/GitHub/ECE474_assignment3/src/hardwareComponent.cpp > CMakeFiles/hlsyn.dir/hardwareComponent.cpp.i
+
+src/CMakeFiles/hlsyn.dir/hardwareComponent.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/hlsyn.dir/hardwareComponent.cpp.s"
+	cd /home/aaron/GitHub/ECE474_assignment3/build/src && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/aaron/GitHub/ECE474_assignment3/src/hardwareComponent.cpp -o CMakeFiles/hlsyn.dir/hardwareComponent.cpp.s
+
 src/CMakeFiles/hlsyn.dir/main.cpp.o: src/CMakeFiles/hlsyn.dir/flags.make
 src/CMakeFiles/hlsyn.dir/main.cpp.o: /home/aaron/GitHub/ECE474_assignment3/src/main.cpp
 src/CMakeFiles/hlsyn.dir/main.cpp.o: src/CMakeFiles/hlsyn.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/aaron/GitHub/ECE474_assignment3/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object src/CMakeFiles/hlsyn.dir/main.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/aaron/GitHub/ECE474_assignment3/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object src/CMakeFiles/hlsyn.dir/main.cpp.o"
 	cd /home/aaron/GitHub/ECE474_assignment3/build/src && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT src/CMakeFiles/hlsyn.dir/main.cpp.o -MF CMakeFiles/hlsyn.dir/main.cpp.o.d -o CMakeFiles/hlsyn.dir/main.cpp.o -c /home/aaron/GitHub/ECE474_assignment3/src/main.cpp
 
 src/CMakeFiles/hlsyn.dir/main.cpp.i: cmake_force
@@ -139,41 +125,39 @@ src/CMakeFiles/hlsyn.dir/main.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/hlsyn.dir/main.cpp.s"
 	cd /home/aaron/GitHub/ECE474_assignment3/build/src && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/aaron/GitHub/ECE474_assignment3/src/main.cpp -o CMakeFiles/hlsyn.dir/main.cpp.s
 
-src/CMakeFiles/hlsyn.dir/parser.cpp.o: src/CMakeFiles/hlsyn.dir/flags.make
-src/CMakeFiles/hlsyn.dir/parser.cpp.o: /home/aaron/GitHub/ECE474_assignment3/src/parser.cpp
-src/CMakeFiles/hlsyn.dir/parser.cpp.o: src/CMakeFiles/hlsyn.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/aaron/GitHub/ECE474_assignment3/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object src/CMakeFiles/hlsyn.dir/parser.cpp.o"
-	cd /home/aaron/GitHub/ECE474_assignment3/build/src && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT src/CMakeFiles/hlsyn.dir/parser.cpp.o -MF CMakeFiles/hlsyn.dir/parser.cpp.o.d -o CMakeFiles/hlsyn.dir/parser.cpp.o -c /home/aaron/GitHub/ECE474_assignment3/src/parser.cpp
+src/CMakeFiles/hlsyn.dir/topModule.cpp.o: src/CMakeFiles/hlsyn.dir/flags.make
+src/CMakeFiles/hlsyn.dir/topModule.cpp.o: /home/aaron/GitHub/ECE474_assignment3/src/topModule.cpp
+src/CMakeFiles/hlsyn.dir/topModule.cpp.o: src/CMakeFiles/hlsyn.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/aaron/GitHub/ECE474_assignment3/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object src/CMakeFiles/hlsyn.dir/topModule.cpp.o"
+	cd /home/aaron/GitHub/ECE474_assignment3/build/src && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT src/CMakeFiles/hlsyn.dir/topModule.cpp.o -MF CMakeFiles/hlsyn.dir/topModule.cpp.o.d -o CMakeFiles/hlsyn.dir/topModule.cpp.o -c /home/aaron/GitHub/ECE474_assignment3/src/topModule.cpp
 
-src/CMakeFiles/hlsyn.dir/parser.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/hlsyn.dir/parser.cpp.i"
-	cd /home/aaron/GitHub/ECE474_assignment3/build/src && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/aaron/GitHub/ECE474_assignment3/src/parser.cpp > CMakeFiles/hlsyn.dir/parser.cpp.i
+src/CMakeFiles/hlsyn.dir/topModule.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/hlsyn.dir/topModule.cpp.i"
+	cd /home/aaron/GitHub/ECE474_assignment3/build/src && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/aaron/GitHub/ECE474_assignment3/src/topModule.cpp > CMakeFiles/hlsyn.dir/topModule.cpp.i
 
-src/CMakeFiles/hlsyn.dir/parser.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/hlsyn.dir/parser.cpp.s"
-	cd /home/aaron/GitHub/ECE474_assignment3/build/src && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/aaron/GitHub/ECE474_assignment3/src/parser.cpp -o CMakeFiles/hlsyn.dir/parser.cpp.s
+src/CMakeFiles/hlsyn.dir/topModule.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/hlsyn.dir/topModule.cpp.s"
+	cd /home/aaron/GitHub/ECE474_assignment3/build/src && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/aaron/GitHub/ECE474_assignment3/src/topModule.cpp -o CMakeFiles/hlsyn.dir/topModule.cpp.s
 
 # Object files for target hlsyn
 hlsyn_OBJECTS = \
-"CMakeFiles/hlsyn.dir/IOWire.cpp.o" \
-"CMakeFiles/hlsyn.dir/Module.cpp.o" \
-"CMakeFiles/hlsyn.dir/TopModule.cpp.o" \
 "CMakeFiles/hlsyn.dir/argumentChecker.cpp.o" \
+"CMakeFiles/hlsyn.dir/circuitParser.cpp.o" \
+"CMakeFiles/hlsyn.dir/hardwareComponent.cpp.o" \
 "CMakeFiles/hlsyn.dir/main.cpp.o" \
-"CMakeFiles/hlsyn.dir/parser.cpp.o"
+"CMakeFiles/hlsyn.dir/topModule.cpp.o"
 
 # External object files for target hlsyn
 hlsyn_EXTERNAL_OBJECTS =
 
-src/hlsyn: src/CMakeFiles/hlsyn.dir/IOWire.cpp.o
-src/hlsyn: src/CMakeFiles/hlsyn.dir/Module.cpp.o
-src/hlsyn: src/CMakeFiles/hlsyn.dir/TopModule.cpp.o
 src/hlsyn: src/CMakeFiles/hlsyn.dir/argumentChecker.cpp.o
+src/hlsyn: src/CMakeFiles/hlsyn.dir/circuitParser.cpp.o
+src/hlsyn: src/CMakeFiles/hlsyn.dir/hardwareComponent.cpp.o
 src/hlsyn: src/CMakeFiles/hlsyn.dir/main.cpp.o
-src/hlsyn: src/CMakeFiles/hlsyn.dir/parser.cpp.o
+src/hlsyn: src/CMakeFiles/hlsyn.dir/topModule.cpp.o
 src/hlsyn: src/CMakeFiles/hlsyn.dir/build.make
 src/hlsyn: src/CMakeFiles/hlsyn.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/aaron/GitHub/ECE474_assignment3/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Linking CXX executable hlsyn"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/aaron/GitHub/ECE474_assignment3/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Linking CXX executable hlsyn"
 	cd /home/aaron/GitHub/ECE474_assignment3/build/src && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/hlsyn.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

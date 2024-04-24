@@ -1,4 +1,4 @@
-#include "Parser.h"
+#include "circuitParser.h"
 
 
 
@@ -17,7 +17,7 @@ int Parser::parseLine(string line, TopModule * topModule) {
         topModule->setRegisters(Parser::parseRegister(line));
         topModule->setWires(Parser::parseRegister(line));
     } else if (identifier != EMPTY && identifier.substr(0,2) != COMMENT) {
-        Module *temp = Parser::parseOperation(line, *topModule);
+        HwComponent *temp = Parser::parseOperation(line, *topModule);
         if (temp->getOperation() == ERROR) {
             return -1; // report error
         } else {
@@ -46,60 +46,56 @@ int Parser::ifFinder(int index, vector<string>& lines, TopModule * topModule)
 	map<int, string> trueComputations;
 	map<int, string> falseComputations;
 	vector<int> falseSoloComputations; 
-	unsigned int j;
+	unsigned int lineIndex;
 	string elseIdentifier = "";
 	stringstream variable(lines.at(index));
 	string if_dummy, parenthesis_dummy, ifVariable;
 	variable >> if_dummy >> parenthesis_dummy >> ifVariable;
-	for (j = index + 1; j < lines.size(); j++) {
-		stringstream lineStream2(lines.at(j));
-		string nextIdentifier;
-		lineStream2 >> nextIdentifier;
-		if (nextIdentifier.compare("}") == 0) {
-			index = j + 1;
-			if (lines.size() > index) {
-				stringstream lineStream3(lines.at(index));
-				lineStream3 >> elseIdentifier;
-			}
-			else {
-				stringstream lineStream3(" ");
-				lineStream3 >> elseIdentifier;
-			}
+	
+
+	// for loop to find the true and false computations
+	for (lineIndex = index + 1; lineIndex < lines.size(); ++lineIndex) {
+		const auto& line = lines[lineIndex];
+		std::istringstream lineStream(line);
+		std::string nextIdentifier;
+		lineStream >> nextIdentifier;
+
+		if (nextIdentifier == "}") {
+			index = lineIndex + 1;
+			std::istringstream ss(lines.size() > index ? lines[index] : " ");
+			ss >> elseIdentifier;
 			break;
 		}
-		else if (nextIdentifier.compare(EMPTY) == 0 || nextIdentifier.substr(0, 2).compare(COMMENT) == 0) {
-			
+		else if (nextIdentifier == EMPTY || nextIdentifier.substr(0, 2) == COMMENT) {
 			continue;
 		}
-		else if (nextIdentifier.compare(IF) == 0) {
-			j = ifFinder(j, lines, topModule);
+		else if (nextIdentifier == IF) {
+			lineIndex = ifFinder(lineIndex, lines, topModule);
 		}
-		else
-		{
-	
-			trueComputations[j] = lines.at(j);
-
+		else {
+			trueComputations.emplace(lineIndex, line);
 		}
 	}
-	if (elseIdentifier.compare(ELSE) == 0) {
-		for (j = index + 1; j < lines.size(); j++) {
-			stringstream lineStream2(lines.at(j));
-			string nextIdentifier;
-			lineStream2 >> nextIdentifier;
-			if (nextIdentifier.compare("}") == 0) {
+
+	if (elseIdentifier == ELSE) {
+		for (lineIndex = index + 1; lineIndex < lines.size(); ++lineIndex) {
+			const auto& line = lines[lineIndex];
+			std::istringstream lineStream(line);
+			std::string nextIdentifier;
+			lineStream >> nextIdentifier;
+
+			if (nextIdentifier == "}") {
 				break;
 			}
-			else if (nextIdentifier.compare(EMPTY) == 0 || nextIdentifier.substr(0, 2).compare(COMMENT) == 0) {
-				// If it is a empty line or a comment
+			else if (nextIdentifier == EMPTY || nextIdentifier.substr(0, 2) == COMMENT) {
 				continue;
 			}
-			else if (nextIdentifier.compare(IF) == 0) {
-				j = ifFinder(j, lines, topModule);
+			else if (nextIdentifier == IF) {
+				lineIndex = ifFinder(lineIndex, lines, topModule);
 			}
-			else
-			{
-				falseComputations[j] = lines.at(j);
-				falseSoloComputations.push_back(j);
+			else {
+				falseComputations.emplace(lineIndex, line);
+				falseSoloComputations.emplace_back(lineIndex);
 			}
 		}
 	}
@@ -117,38 +113,35 @@ int Parser::ifFinder(int index, vector<string>& lines, TopModule * topModule)
 		inputStream1 >> outputName1;
 		IOWire* output1 = topModule->findOutputWire(outputName1);
 		for (auto& operationLine2 : falseComputations) {
-			stringstream inputStream2(operationLine2.second);
 			string outputName2;
-			inputStream2 >> outputName2;
+			stringstream(operationLine2.second) >> outputName2;
 			IOWire* output2 = topModule->findOutputWire(outputName2);
-			if (outputName1 == outputName2) {
-				inBoth = true;
-				inFile = true;
-				falseSoloComputations.erase(remove(falseSoloComputations.begin(), falseSoloComputations.end(), operationLine2.first), falseSoloComputations.end()); // Erasing by value from the vector because it was in the file
-				operationLine1.second.replace(operationLine1.second.find(outputName1 + " ="), string(outputName1 + " =").length(), outputName1 + "_True =");
-				operationLine2.second.replace(operationLine2.second.find(outputName2 + " ="), string(outputName2 + " =").length(), outputName2 + "_False =");
 
-				// Make new wires and add them to the list of wires
-				IOWire* trueWire = new IOWire(outputName1 + "_True", output1->getType());
-				IOWire* falseWire = new IOWire(outputName1 + "_False", output2->getType());
-				topModule->addWire(*trueWire);
-				topModule->addWire(*falseWire);
+			if (outputName1 != outputName2) continue;
 
-				// Make the modules and wire
-				Module* trueModule = parseOperation(operationLine1.second, *topModule);
-				Module* falseModule = parseOperation(operationLine2.second, *topModule);
-				trueWire->setPrev(trueModule);
-				falseWire->setPrev(falseModule);
-				topModule->addModule(trueModule);
-				topModule->addModule(falseModule);
+			inBoth = inFile = true;
+			falseSoloComputations.erase(remove(falseSoloComputations.begin(), falseSoloComputations.end(), operationLine2.first), falseSoloComputations.end());
 
-				// Creating the Mux
-				vector<IOWire*> inputWires = {trueWire, falseWire, topModule->findInputWire(ifVariable)};
-				IOWire* outputWire = topModule->findOutputWire(outputName1);
-				string operationString = outputName1 + " = " + ifVariable + " ? " + outputName1 + "_True" + " : " + outputName1 + "_False";
-				Module* mux = new  Module("MUX", inputWires, outputWire, operationString);
-				topModule->addModule(mux);
-			}
+			operationLine1.second.replace(operationLine1.second.find(outputName1 + " ="), (outputName1 + " =").length(), outputName1 + "_True =");
+			operationLine2.second.replace(operationLine2.second.find(outputName2 + " ="), (outputName2 + " =").length(), outputName2 + "_False =");
+
+			IOWire* trueWire = new IOWire(outputName1 + "_True", output1->getType());
+			IOWire* falseWire = new IOWire(outputName1 + "_False", output2->getType());
+			topModule->addWire(*trueWire);
+			topModule->addWire(*falseWire);
+
+			HwComponent* trueModule = parseOperation(operationLine1.second, *topModule);
+			HwComponent* falseModule = parseOperation(operationLine2.second, *topModule);
+			trueWire->setPrev(trueModule);
+			falseWire->setPrev(falseModule);
+			topModule->addModule(trueModule);
+			topModule->addModule(falseModule);
+
+			vector<IOWire*> inputWires = {trueWire, falseWire, topModule->findInputWire(ifVariable)};
+			IOWire* outputWire = topModule->findOutputWire(outputName1);
+			string operationString = outputName1 + " = " + ifVariable + " ? " + outputName1 + "_True" + " : " + outputName1 + "_False";
+			HwComponent* mux = new  HwComponent("MUX", inputWires, outputWire, operationString);
+			topModule->addModule(mux);
 		}
 		if (!inBoth) {
 			for (int i = 0; i < lines.size(); i++) {
@@ -171,7 +164,7 @@ int Parser::ifFinder(int index, vector<string>& lines, TopModule * topModule)
 						topModule->findOutputWire(outputName1)->prev->setOperationLine(operationLine);
 						topModule->addWire(*falseWire);
 						topModule->addWire(*trueWire);
-						Module* trueModule = parseOperation(operationLine1.second, *topModule);
+						HwComponent* trueModule = parseOperation(operationLine1.second, *topModule);
 						trueWire->setPrev(trueModule);
 						topModule->addModule(trueModule);
 						
@@ -179,7 +172,7 @@ int Parser::ifFinder(int index, vector<string>& lines, TopModule * topModule)
 						vector<IOWire*> inputWires = { trueWire, falseWire, topModule->findInputWire(ifVariable) };
 						IOWire* outputWire = topModule->findOutputWire(outputName1);
 						string operationString = outputName1 + " = " + ifVariable + " ? " + outputName1 + "_True" + " : " + outputName1 + "_False";
-						Module* mux = new  Module("MUX", inputWires, outputWire, operationString);
+						HwComponent* mux = new  HwComponent("MUX", inputWires, outputWire, operationString);
 						topModule->addModule(mux);
 
 					}
@@ -195,8 +188,8 @@ int Parser::ifFinder(int index, vector<string>& lines, TopModule * topModule)
 						topModule->addWire(*falseWire);
 
 						// Creating the modules and attaching the wires
-						Module* trueModule = parseOperation(operationLine1.second, *topModule);
-						Module* falseModule = parseOperation(lines.at(i), *topModule);
+						HwComponent* trueModule = parseOperation(operationLine1.second, *topModule);
+						HwComponent* falseModule = parseOperation(lines.at(i), *topModule);
 						trueWire->setPrev(trueModule);
 						falseWire->setPrev(falseModule);
 						topModule->addModule(trueModule);
@@ -206,7 +199,7 @@ int Parser::ifFinder(int index, vector<string>& lines, TopModule * topModule)
 						vector<IOWire*> inputWires = { trueWire, falseWire, topModule->findInputWire(ifVariable) };
 						IOWire* outputWire = topModule->findOutputWire(outputName1);
 						string operationString = outputName1 + " = " + ifVariable + " ? " + outputName1 + "_True" + " : " + outputName1 + "_False";
-						Module* mux = new  Module("MUX", inputWires, outputWire,  operationString);
+						HwComponent* mux = new  HwComponent("MUX", inputWires, outputWire,  operationString);
 						topModule->addModule(mux);
 						lines.erase(lines.begin() + i);
 					}
@@ -216,18 +209,18 @@ int Parser::ifFinder(int index, vector<string>& lines, TopModule * topModule)
 			}
 		}
 		if (!inFile) { 
-			Module* trueModule = parseOperation(operationLine1.second, *topModule); 
+			HwComponent* trueModule = parseOperation(operationLine1.second, *topModule); 
 			topModule->addModule(trueModule);
 		}
 
 	}
 
 	for (int lineNumber : falseSoloComputations) { 
-		Module* trueModule = parseOperation(lines.at(lineNumber), *topModule); 
+		HwComponent* trueModule = parseOperation(lines.at(lineNumber), *topModule); 
 		topModule->addModule(trueModule);
 	}
 
-	return j;
+	return lineIndex;
 }
 
 vector<IOWire> Parser::parseInput(string inputString)
@@ -322,13 +315,13 @@ vector<IOWire> Parser::parseRegister(string registerString)
 	}
 	return registers;
 }
-Module* Parser::parseOperation(string operationString, TopModule &topModule)
+HwComponent* Parser::parseOperation(string operationString, TopModule &topModule)
 {
     std::string dummy, operatorChar, inputChar1, inputChar2, inputChar3, outputChar;
     std::vector<IOWire*> inputWires;
     IOWire* outputWire;
     std::stringstream ss(operationString);
-    Module *opModule = NULL;
+    HwComponent *opModule = NULL;
 
     ss >> outputChar >> dummy >> inputChar1 >> operatorChar >> inputChar2 >> dummy >> inputChar3;
 
@@ -340,7 +333,7 @@ Module* Parser::parseOperation(string operationString, TopModule &topModule)
     auto findAndPushInputWire = [&](const std::string& inputChar) {
         IOWire* tempInput = topModule.findInputWire(inputChar);
         if (tempInput == NULL) {
-            opModule = new Module("ERROR");
+            opModule = new HwComponent("ERROR");
             return false;
         }
         inputWires.push_back(tempInput);
@@ -355,7 +348,7 @@ Module* Parser::parseOperation(string operationString, TopModule &topModule)
 
     outputWire = topModule.findOutputWire(outputChar);
     if (outputWire == NULL) {
-        opModule = new Module("ERROR");
+        opModule = new HwComponent("ERROR");
         return opModule;
     }
 
@@ -365,9 +358,9 @@ Module* Parser::parseOperation(string operationString, TopModule &topModule)
         operatorChar = "DEC";
 
     if (operatorMap.find(operatorChar) != operatorMap.end()) 
-        opModule = new Module(operatorMap[operatorChar], inputWires, outputWire, operationString);
+        opModule = new HwComponent(operatorMap[operatorChar], inputWires, outputWire, operationString);
     else 
-        opModule = new Module("ERROR");
+        opModule = new HwComponent("ERROR");
 
     return opModule;
 }

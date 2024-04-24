@@ -8,24 +8,24 @@
  * It also provides methods to print the module, print the module statement, and update the scheduling time frame.
  */
 
-#include "Module.h"
+#include "hardwareComponent.h"
 #include <map>
 
 
-Module::Module()
+HwComponent::HwComponent()
     : operation(""), inputs(), output(new IOWire()), delay(0), 
       maxBitWidth(0), isSigned(false), timeFrame()
 {}
 
-Module::Module(string operation)
+HwComponent::HwComponent(string operation)
     : operation(operation), inputs(), output(new IOWire()), delay(0), 
       maxBitWidth(0), isSigned(false), timeFrame()
 {}
 
 /**
- * @brief Constructs a Module object.
+ * @brief Constructs a Hardware Component object.
  * 
- * This constructor initializes a Module object with a given operation, a list of input wires, an output wire, and an operation line.
+ * This constructor initializes a HwComponent object with a given operation, a list of input wires, an output wire, and an operation line.
  * It also sets the 'isSigned' attribute based on the output wire and input wires, and the 'maxBitWidth' attribute based on the operation and the bit widths of the input wires.
  * The constructor also updates the connections between the module and its input and output wires.
  * 
@@ -35,7 +35,7 @@ Module::Module(string operation)
  * @param operationLine The line of code that represents the operation.
  */
 
-Module::Module(string operation, vector<IOWire*> inputs, IOWire *output, string operationLine)
+HwComponent::HwComponent(string operation, vector<IOWire*> inputs, IOWire *output, string operationLine)
     : operation(operation), inputs(inputs), output(output), operationLine(operationLine), 
       isSigned(output->getSigned()), maxBitWidth(output->getBitWidth()), timeFrame(0)
 {
@@ -64,7 +64,7 @@ Module::Module(string operation, vector<IOWire*> inputs, IOWire *output, string 
  * This function outputs the name of the module to the standard output. The name of the module is the operation it performs.
  */
 
-void Module::PrintModule() { cout << "Module Name: " << this->operation << endl; }
+void HwComponent::PrintModule() { cout << "Module Name: " << this->operation << endl; }
 
 
 /**
@@ -75,7 +75,7 @@ void Module::PrintModule() { cout << "Module Name: " << this->operation << endl;
  * 
  * @param edge The current time edge.
  */
-void Module::updateAsap(int edge){
+void HwComponent::updateAsap(int edge){
     // Set the ASAP time frame of the module to the given edge time
 	timeFrame.at(0) = edge;
 
@@ -107,7 +107,7 @@ void Module::updateAsap(int edge){
  * @param edge The current time edge.
  */
 
-void Module::updateAlap(int edge){
+void HwComponent::updateAlap(int edge){
     // Set the ALAP time frame of the module to the given edge time
     timeFrame.at(1) = edge;
 
@@ -142,7 +142,7 @@ void Module::updateAlap(int edge){
  * @param circuitFile The output file stream to write the module statement to.
  * @param moduleNum The number of the module.
  */
-void Module::PrintModuleStatement(ofstream& circuitFile, int moduleNum)
+void HwComponent::PrintModuleStatement(ofstream& circuitFile, int moduleNum)
 {
     string inputs;
     string output = this->output->getName();
@@ -179,16 +179,108 @@ void Module::PrintModuleStatement(ofstream& circuitFile, int moduleNum)
 }
 
 // Setters
-void Module::setOperationLine(string operationLine) { this->operationLine = operationLine; }
-void Module::setOutput(IOWire * output) { this->output = output; }
-void Module::setOperation(string operation) { this->operation = operation; }
-void Module::setTimeFrame(int edge) { timeFrame.push_back(edge); }
+void HwComponent::setOperationLine(string operationLine) { this->operationLine = operationLine; }
+void HwComponent::setOutput(IOWire * output) { this->output = output; }
+void HwComponent::setOperation(string operation) { this->operation = operation; }
+void HwComponent::setTimeFrame(int edge) { timeFrame.push_back(edge); }
 
 // Getters
-string Module::getOperation() { return this->operation; }
-string Module::getOperationLine() { return this->operationLine; }
-vector<IOWire*> Module::getInputs() { return this->inputs; }
-IOWire* Module::getOutputs() { return this->output; }
-double Module::getDelay() { return this->delay; }
-int Module::getMaxBitWidth() { return this->maxBitWidth; }
-vector<int> Module::getTimeFrame() { return this->timeFrame; }
+string HwComponent::getOperation() { return this->operation; }
+string HwComponent::getOperationLine() { return this->operationLine; }
+vector<IOWire*> HwComponent::getInputs() { return this->inputs; }
+IOWire* HwComponent::getOutputs() { return this->output; }
+double HwComponent::getDelay() { return this->delay; }
+int HwComponent::getMaxBitWidth() { return this->maxBitWidth; }
+vector<int> HwComponent::getTimeFrame() { return this->timeFrame; }
+
+
+
+
+
+
+
+
+IOWire::IOWire() : name(""), type(""), prev(nullptr), bitWidth(0), isSigned(false) {}
+
+IOWire::IOWire(string name, string type) : name(name), type(type), prev(nullptr), isSigned(false)
+{
+    size_t pos = type.find("UInt");
+    if (pos != std::string::npos) 
+    {
+        bitWidth = stoi(type.substr(4));
+    }
+    else if ((pos = type.find("Int")) != std::string::npos) 
+    {
+        bitWidth = stoi(type.substr(3));
+        isSigned = true;
+    }
+}
+
+void IOWire::setPrev(HwComponent *prev){
+	this->prev = prev;
+	return;
+}
+
+void IOWire::setName(string name){
+	this->name = name;
+}
+
+void IOWire::setNext(vector<HwComponent*> next){
+	this->next = next;
+	return;
+}
+
+void IOWire::addNext(HwComponent *next){
+	this->next.push_back(next);
+	return;
+}
+
+string IOWire::getName(){
+	return this->name;
+}
+
+string IOWire::getType(){
+	return this->type;
+}
+
+int IOWire::getBitWidth(){
+	return this->bitWidth;
+}
+
+string IOWire::printIOWire(){
+	string retString = "";
+
+	if (this->isSigned)	{
+		retString = "signed " + this->printBitWidth() + " " + this->name;
+	}
+	else {
+		retString = this->printBitWidth() + " " + this->name;
+	}
+	
+	return retString;
+}
+
+
+
+
+string IOWire::printBitWidth() {
+    // Create a stringstream to build the bit width string
+    stringstream bitWidthStream;
+
+    // If the bit width is greater than 1, format it as a range [bitWidth-1:0]
+    if (this->bitWidth > 1) {
+        bitWidthStream << "[" << (this->bitWidth - 1) << ":0]";
+    }
+    // If the bit width is not greater than 1, add an empty string to the stream
+    else {
+        bitWidthStream << "";
+    }
+
+    // Return the string representation of the bit width
+    return bitWidthStream.str();
+}
+
+
+bool IOWire::getSigned(){
+	return this->isSigned;
+}

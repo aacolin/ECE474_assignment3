@@ -1,39 +1,19 @@
 #include "IOWire.h"
 
-IOWire::IOWire()
-{
-	this->name = "";
-	this->type = "";
-	this->prev = NULL;
-	this->bitWidth = 0;
-	this->next = vector<Module*>();
-	this->isSigned = false;
-}
+IOWire::IOWire() : name(""), type(""), prev(nullptr), bitWidth(0), isSigned(false) {}
 
-IOWire::IOWire(string name, string type)
+IOWire::IOWire(string name, string type) : name(name), type(type), prev(nullptr), isSigned(false)
 {
-	string intString = "";
-	stringstream ss;
-	int bitWidth = 0;
-	
-	if (type.find("UInt") != std::string::npos) 
-	{
-		intString = type.substr(4, type.length());
-		bitWidth = stoi(intString);
-		this->isSigned = false;
-	}
-	else if (type.find("Int") != std::string::npos) 
-	{
-		intString = type.substr(3, type.length());
-		bitWidth = stoi(intString);
-		this->isSigned = true;
-	}
-
-	this->name = name;
-	this->type = type;
-	this->prev = NULL;
-	this->next = vector<Module*>();
-	this->bitWidth = bitWidth;
+    size_t pos = type.find("UInt");
+    if (pos != std::string::npos) 
+    {
+        bitWidth = stoi(type.substr(4));
+    }
+    else if ((pos = type.find("Int")) != std::string::npos) 
+    {
+        bitWidth = stoi(type.substr(3));
+        isSigned = true;
+    }
 }
 
 void IOWire::setPrev(Module *prev){
@@ -79,6 +59,7 @@ string IOWire::printIOWire(){
 	
 	return retString;
 }
+
 
 
 

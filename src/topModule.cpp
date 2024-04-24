@@ -1,18 +1,8 @@
-#include "TopModule.h"
+#include "topModule.h"
 #include <iostream>
 
-TopModule::TopModule()
-{
-	this->inputs = vector<IOWire>(0);
-	this->outputs = vector<IOWire>(0);
-	this->wires = vector<IOWire>(0);
-	this->wires.reserve(100);
-	this->registers = vector<IOWire>(0);
-	this->modules = vector<Module*>(0);
-	this->addSubGraph = vector<float>(0);
-	this->logicGraph = vector<float>(0);
-	this->mulGraph = vector<float>(0);
-	this->divModGraph = vector<float>(0);
+TopModule::TopModule() {
+    wires.reserve(100);
 }
 
 void TopModule::setInputs(vector<IOWire> inputs)
@@ -39,75 +29,52 @@ void TopModule::setRegisters(vector<IOWire> registers)
 	return;
 }
 
-void TopModule::addModule(Module* module)
+void TopModule::addModule(HwComponent* module)
 {
 	this->modules.push_back(module);
 }
 
-IOWire* TopModule::findInputWire(string wireName)
+IOWire* TopModule::findInputWire(const string& wireName)
 {
-	unsigned int i = 0;
+    for (auto& input : this->inputs) {
+        if (input.getName() == wireName) {
+            return &input;
+        }
+    }
 
-	for (i = 0; i < this->inputs.size(); i++)
-	{
-		if (this->inputs.at(i).getName().compare(wireName) == 0)
-		{
-			return &(this->inputs.at(i));
-		}
- 	}
+    for (auto& wire : this->wires){
+        if (wire.getName() == wireName){
+            return &wire;
+        }
+    }
+    return nullptr;
+}
+IOWire* TopModule::findOutputWire(const string& wireName)
+{
+    for (auto& output : this->outputs){
+        if (output.getName() == wireName){
+            return &output;
+        }
+    }
 
-	for (i = 0; i < this->wires.size(); i++)
-	{
-		if (this->wires.at(i).getName().compare(wireName) == 0)
-		{
-			return &(this->wires.at(i));
-		}
-	}
+    for (auto& wire : this->wires){
+        if (wire.getName() == wireName){
+            return &wire;
+        }
+    }
 
-	//cout << "No Module input found for: " << wireName << endl;
-
-	return NULL;
+    return nullptr;
 }
 
-IOWire* TopModule::findOutputWire(string wireName)
+IOWire* TopModule::findOutputRegister(const string& wireName)
 {
-	unsigned int i = 0;
+    for (auto& reg : this->registers){
+        if (reg.getName() == wireName){
+            return &reg;
+        }
+    }
 
-	for (i = 0; i < this->outputs.size(); i++)
-	{
-		if (this->outputs.at(i).getName().compare(wireName) == 0)
-		{
-			return &(this->outputs.at(i));
-		}
-	}
-
-	for (i = 0; i < this->wires.size(); i++)
-	{
-		if (this->wires.at(i).getName().compare(wireName) == 0)
-		{
-			return &(this->wires.at(i));
-		}
-	}
-
-	//cout << "No Module output found for: " << wireName << endl;
-
-	return NULL;
-}
-
-IOWire* TopModule::findOutputRegister(string wireName)
-{
-	unsigned int i = 0;
-
-	for (i = 0; i < this->registers.size(); i++)
-	{
-		if (this->registers.at(i).getName().compare(wireName) == 0)
-		{
-			return &(this->registers.at(i));
-		}
-	}
-	//cout << "No Module register found for: " << wireName << endl;
-
-	return NULL;
+    return nullptr;
 }
 
 void TopModule::printInputs(ofstream& circuitFile)
@@ -167,7 +134,6 @@ void TopModule::printModuleName(ofstream& circuitFile, string CircuitName)
 	for (i = 0; i < this->inputs.size(); i++)
 	{
 		inputOutputList += this->inputs.at(i).getName() + ", ";
-		//cout << this->wires.at(i).printIOWire() << endl;
 	}
 	for (i = 0; i < this->outputs.size(); i++)
 	{
@@ -177,9 +143,7 @@ void TopModule::printModuleName(ofstream& circuitFile, string CircuitName)
 		else {
 			inputOutputList += this->outputs.at(i).getName() + ");";
 		}
-			//cout << this->wires.at(i).printIOWire() << endl;
 	}
-
 	circuitFile << "module " << CircuitName << inputOutputList << endl << endl;
 }
 
@@ -194,7 +158,7 @@ void TopModule::printModules(ofstream& circuitFile) {
 
 }
 
-double TopModule::findInputDelay(Module module)
+double TopModule::findInputDelay(HwComponent module)
 {
 	vector<double> inputDelays;
 	unsigned int i = 0;
@@ -222,30 +186,7 @@ double TopModule::findInputDelay(Module module)
 	return largestDelay + module.getDelay();
 }
 
-void TopModule::findCriticalPath()
-{
-	vector<Module> outputModules;
-	double totalDelay = 0;
-	unsigned int i = 0;
 
-	for (i = 0; i < this->outputs.size(); i++)
-	{
-		outputModules.push_back(*this->outputs.at(i).prev);
-	}
-
-	for (i = 0; i < outputModules.size(); i++)
-	{
-		//cout << "Critical path for output " << i << endl;
-		double delay = findInputDelay(outputModules.at(i));
-		if (delay > totalDelay)
-		{
-			totalDelay = delay;
-		}
-	}
-
-	cout << "Critical Path : " << totalDelay << " ns" << endl;
-	//return totalDelay;
-}
 
 void TopModule::asapSchedule()
 {
@@ -500,39 +441,11 @@ void TopModule::populateGraph(int latency)
 	this->logicGraph = lGraph;
 	this->mulGraph = mGraph;
 	this->divModGraph = dGraph;
-	/*
-	cout << "Add/Sub Graph" << endl;
-	for (i = 0; i < latency; i++)
-	{
-		cout << i << " " << this->addSubGraph.at(i) << endl;
-	}
-	cout << endl;
-
-	cout << "Div/Mod Graph" << endl;
-	for (i = 0; i < latency; i++)
-	{
-		cout << i << " " << this->divModGraph.at(i) << endl;
-	}
-	cout << endl;
-
-	cout << "Mul Graph" << endl;
-	for (i = 0; i < latency; i++)
-	{
-		cout << i << " " << this->mulGraph.at(i) << endl;
-	}
-	cout << endl;
-
-	cout << "logic Graph" << endl;
-	for (i = 0; i < latency; i++)
-	{
-		cout << i << " " << this->logicGraph.at(i) << endl;
-	}
-	cout << endl;
-	*/
+	
 	
 }
 
-vector<float> TopModule::selfForce(Module currMod, int next, int prev)
+vector<float> TopModule::selfForce(HwComponent currMod, int next, int prev)
 {
 	unsigned int i = 0;
 	unsigned int j = 0;
@@ -586,7 +499,7 @@ vector<float> TopModule::selfForce(Module currMod, int next, int prev)
 	
 }
 
-float TopModule::successorForces(Module *currMod, int assumedTime, string operation)
+float TopModule::successorForces(HwComponent *currMod, int assumedTime, string operation)
 {
 	unsigned int i = 0;
 	float succForce = 0;		//sum of successive forces
@@ -635,7 +548,7 @@ float TopModule::successorForces(Module *currMod, int assumedTime, string operat
 	return succForce;
 }
 
-float TopModule::predecessorForces(Module *currMod, int assumedTime, string operation)
+float TopModule::predecessorForces(HwComponent *currMod, int assumedTime, string operation)
 {
 	unsigned int i = 0;
 	float predForce = 0;		//sum of predecessor forces
@@ -718,8 +631,6 @@ void TopModule::forceSchedule(int latency)
 					if(this->modules.at(i)->getOutputs()->next.at(k) != NULL)
 						force.at(j) = force.at(j) + successorForces(this->modules.at(i)->getOutputs()->next.at(k), assumedTime, this->modules.at(i)->getOutputs()->next.at(k)->getOperation());
 
-					//cout << endl;
-					//cout << successorForces(this->modules.at(i)->getOutputs()->next.at(k), assumedTime, this->modules.at(i)->getOutputs()->next.at(k)->getOperation());
 				}
 				for (k = 0; k < this->modules.at(i)->getInputs().size(); k++)
 				{

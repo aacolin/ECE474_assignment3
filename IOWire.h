@@ -4,7 +4,7 @@
 #include <iostream>
 #include <sstream>
 #include <string>
-#include "Module.h"
+#include "hardwareComponent.h"
 
 
 class Module;

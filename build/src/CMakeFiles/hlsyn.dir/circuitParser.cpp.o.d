@@ -1,7 +1,7 @@
-src/CMakeFiles/hlsyn.dir/parser.cpp.o: \
- /home/aaron/GitHub/ECE474_assignment3/src/parser.cpp \
+src/CMakeFiles/hlsyn.dir/circuitParser.cpp.o: \
+ /home/aaron/GitHub/ECE474_assignment3/src/circuitParser.cpp \
  /usr/include/stdc-predef.h \
- /home/aaron/GitHub/ECE474_assignment3/src/Parser.h \
+ /home/aaron/GitHub/ECE474_assignment3/src/circuitParser.h \
  /usr/include/c++/13/algorithm /usr/include/c++/13/bits/stl_algobase.h \
  /usr/include/c++/13/x86_64-suse-linux/bits/c++config.h \
  /usr/include/bits/wordsize.h \
@@ -161,10 +161,9 @@ src/CMakeFiles/hlsyn.dir/parser.cpp.o: \
  /usr/include/c++/13/bits/regex_executor.tcc /usr/include/c++/13/vector \
  /usr/include/c++/13/map /usr/include/c++/13/bits/stl_multimap.h \
  /usr/include/c++/13/bits/erase_if.h \
- /home/aaron/GitHub/ECE474_assignment3/src/Module.h \
+ /home/aaron/GitHub/ECE474_assignment3/src/hardwareComponent.h \
  /usr/include/c++/13/fstream \
  /usr/include/c++/13/x86_64-suse-linux/bits/basic_file.h \
  /usr/include/c++/13/x86_64-suse-linux/bits/c++io.h \
  /usr/include/c++/13/bits/fstream.tcc \
- /home/aaron/GitHub/ECE474_assignment3/src/IOWire.h \
- /home/aaron/GitHub/ECE474_assignment3/src/TopModule.h
+ /home/aaron/GitHub/ECE474_assignment3/src/topModule.h

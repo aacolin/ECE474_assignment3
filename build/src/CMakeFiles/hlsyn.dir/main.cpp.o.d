@@ -137,7 +137,7 @@ src/CMakeFiles/hlsyn.dir/main.cpp.o: \
  /usr/include/c++/13/bits/uses_allocator.h \
  /usr/include/c++/13/bits/stl_multimap.h \
  /usr/include/c++/13/bits/erase_if.h \
- /home/aaron/GitHub/ECE474_assignment3/src/Parser.h \
+ /home/aaron/GitHub/ECE474_assignment3/src/circuitParser.h \
  /usr/include/c++/13/algorithm /usr/include/c++/13/bits/stl_algo.h \
  /usr/include/c++/13/bits/algorithmfwd.h \
  /usr/include/c++/13/bits/stl_heap.h \
@@ -169,9 +169,8 @@ src/CMakeFiles/hlsyn.dir/main.cpp.o: \
  /usr/include/c++/13/bits/regex.h /usr/include/c++/13/bits/regex.tcc \
  /usr/include/c++/13/bits/regex_executor.h \
  /usr/include/c++/13/bits/regex_executor.tcc \
- /home/aaron/GitHub/ECE474_assignment3/src/Module.h \
- /home/aaron/GitHub/ECE474_assignment3/src/IOWire.h \
- /home/aaron/GitHub/ECE474_assignment3/src/TopModule.h \
+ /home/aaron/GitHub/ECE474_assignment3/src/hardwareComponent.h \
+ /home/aaron/GitHub/ECE474_assignment3/src/topModule.h \
  /usr/include/c++/13/cmath /usr/include/math.h \
  /usr/include/bits/math-vector.h /usr/include/bits/libm-simd-decl-stubs.h \
  /usr/include/bits/flt-eval-method.h /usr/include/bits/fp-logb.h \

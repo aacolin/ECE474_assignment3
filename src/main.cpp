@@ -3,7 +3,7 @@
 #include <string>
 #include <vector>
 #include <map>
-#include "Parser.h"
+#include "circuitParser.h"
 #include <cmath> 
 #include "argumentChecker.h"
 
@@ -39,9 +39,9 @@ bool processCircuit(const string& circuitName, int latency, const string& output
     // Read the netlist
     netlistContents = readNetlist(circuitName);
 
-    // Check if the netlist is empty
+     // Check if the netlist is empty
     if (netlistContents.empty()) {
-        cout << "Cannot open file or empty file: " << circuitName << endl;
+        cout << "Error: Unable to open the file '" << circuitName << "'. \nPlease ensure the file exists, is not in use by another program, and is not empty." << endl;
         delete topModule;
         return false;
     }
@@ -112,7 +112,7 @@ void writeToFile(string circuitName, TopModule *topModule) {
 void makeOutputFile(string circuitName, TopModule *topModule) {
 	int maxSize = 0;
 
-	for (Module* a : topModule->modules) {
+	for (HwComponent* a : topModule->modules) {
 		if (a->getTimeFrame().at(0) > maxSize) {
 			maxSize = a->getTimeFrame().at(0);
 		}

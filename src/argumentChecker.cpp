@@ -21,11 +21,11 @@ ArgumentChecker::ArgumentChecker(int argc, char* argv[]) : argc(argc), argv(argv
  */
 bool ArgumentChecker::checkArguments() {
     if (argc != 4) {
-        std::cout << "Error, incorrect number of input arguments.\n" << std::endl
-            << "Syntax:  hlsyn cFile latency verilogFile\n" << std::endl
-            << "  cFile       : The path to the netlist you wish to convert." << std::endl
-            << "  latency     : How long the graph has to be scheduled." << std::endl
-            << "  verilogFile : The path to for the output verilogFile." << std::endl;
+        std::cout << "    Error: The number of input arguments provided is incorrect.\n" << std::endl
+            << "    Usage: hlsyn <cFile> <latency> <verilogFile>\n" << std::endl
+            << "        <cFile>       : Netlist file to convert." << std::endl
+            << "        <latency>     : Scheduling duration constrain." << std::endl
+            << "        <verilogFile> : Output Verilog file." << std::endl;
         return false;
     }
 
@@ -33,7 +33,7 @@ bool ArgumentChecker::checkArguments() {
         latency = std::stoi(argv[2]);
     }
     catch (std::invalid_argument&) {
-        std::cout << "Invalid input: Expected an integer value for latency, but received:" << argv[2] << std::endl;
+        std::cout << "Invalid input: Expected an integer value for latency, but received: " << argv[2] << std::endl;
         return false;
     }
 
