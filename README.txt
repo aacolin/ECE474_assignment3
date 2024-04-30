@@ -43,7 +43,7 @@ Aaron Colin:
     - Documented classes, functions and hard to read code
     - Implementation of testing script test_hlsyn.sh
 Michael Cesar-Torres:
-    - Verified R-List scheduling protocol and functionality
+    - Verified scheduling protocol and functionality
     - If statement parsing and edge cases
     - Error checking and detection
 
