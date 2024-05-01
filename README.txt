@@ -46,4 +46,8 @@ Michael Cesar-Torres:
     - Verified scheduling protocol and functionality
     - If statement parsing and edge cases
     - Error checking and detection
+George Collias:
+    - Helped implement main and topmodule 
+    - Helped debugging other modules
+
 
